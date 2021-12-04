@@ -9,13 +9,13 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "compile": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json",
     "test": "jest --coverage",
     "lint": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
     "format": "prettier  --loglevel warn --write \"./**/*.{ts,md,js,yaml,json}\" ",
     "formatCheck": "prettier  --check \"./**/*.{ts,tsx,md,js,jsx,yaml,json}\" ",
     "check": "pnpm format && pnpm lint && pnpm test",
-    "publish": "pnpm check && pnpm publish"
+    "pub": "pnpm check && pnpm build && pnpm publish"
   },
   "repository": {
     "type": "git",
