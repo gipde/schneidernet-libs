@@ -32,8 +32,16 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
+      # Install
       - name: Install
         run: pnpm i
 
+      # Check
       - name: Check
         run: pnpm check
+
+      # Publish
+      - name: Publish
+      - run: pnpm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
