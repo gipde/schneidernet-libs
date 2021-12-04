@@ -1,1 +1,1 @@
-export { formatDay, formatDayTime } from './date'
+export * from './date'

@@ -41,8 +41,8 @@ jobs:
       - name: Check
         run: pnpm check
 
-      # Publish
-      - name: Publish
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # # Publish
+      # - name: Publish
+      #   run: npm publish --access public
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
