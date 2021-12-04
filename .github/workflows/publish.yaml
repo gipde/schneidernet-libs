@@ -41,11 +41,8 @@ jobs:
       - name: Check
         run: pnpm check
 
-      - name: Log
-        run: pnpm config list
-
       # Publish
       - name: Publish
-        run: pnpm publish --access public
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
