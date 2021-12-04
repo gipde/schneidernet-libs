@@ -18,6 +18,12 @@ jobs:
       # Checkout
       - uses: actions/checkout@v2
 
+      # PNPM Build - funktioniert noch nicht
+      - name: Use pnpm Package Manager
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.20.3
+
       # NPM Version
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -25,12 +31,6 @@ jobs:
           cache-dependency-path: 'pnpm-lock.yaml'
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-
-      # PNPM Build - funktioniert noch nicht
-      - name: Use pnpm Package Manager
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.20.3
 
       - name: Install
         run: pnpm i && pnpm test && pnpm build
