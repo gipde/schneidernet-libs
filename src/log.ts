@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import { format } from 'date-fns'
 import { de } from 'date-fns/locale'
-import log = require('loglevel')
+import log from 'loglevel'
 
 log.setDefaultLevel(log.levels.TRACE)
 log.setLevel(log.levels.TRACE)
