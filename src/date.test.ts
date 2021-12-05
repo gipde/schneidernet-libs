@@ -1,5 +1,4 @@
-import { ageInYears } from '.'
-import { formatDay, formatDayTime } from './date'
+import { formatDay, formatDayTime, ageInYears } from './date'
 
 test('simple Date Test', () => {
   const d = new Date('2021-12-4')
