@@ -15,10 +15,7 @@ export default [
       format: 'umd',
       sourcemap: true,
       compact: true,
-      plugins: [
-        // nodePolyfills(),
-        //  terser()
-      ],
+      plugins: [terser()],
       globals: { os: 'require$$0', tty: 'require$$1' },
     },
     plugins: [
