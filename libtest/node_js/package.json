@@ -1,0 +1,14 @@
+{
+  "name": "libtest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Werner Schneider",
+  "license": "ISC",
+  "dependencies": {
+    "@schneidernet/tools": "link:../.."
+  }
+}

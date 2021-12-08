@@ -1,0 +1,18 @@
+{
+  "name": "node_ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node server.js"
+  },
+  "author": "Werner Schneider",
+  "license": "ISC",
+  "dependencies": {
+    "@schneidernet/tools": "link:../.."
+  },
+  "devDependencies": {
+    "typescript": "^4.5.2"
+  }
+}

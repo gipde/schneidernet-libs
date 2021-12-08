@@ -1,0 +1,7 @@
+lockfileVersion: 5.3
+
+specifiers:
+  '@schneidernet/tools': link:../..
+
+dependencies:
+  '@schneidernet/tools': link:../..

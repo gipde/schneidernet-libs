@@ -15,12 +15,16 @@ export default [
       format: 'umd',
       sourcemap: true,
       compact: true,
-      plugins: [terser()],
+      plugins: [
+        // nodePolyfills(),
+        //  terser()
+      ],
+      globals: { os: 'require$$0', tty: 'require$$1' },
     },
     plugins: [
-      nodePolyfills(), // Node.js Polyfill
       nodeResolve(), // include node_modulse deps
       commonjs(), // convert to es modules
+      nodePolyfills(), // Node.js Polyfill
       typescript(), // so Rollup can convert TypeScript to JavaScript
     ],
   },
