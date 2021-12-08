@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "emitDeclarationOnly": true,
+
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
-    "outDir": "./dist",
+    "outDir": "./dist/types",
+    "useDefineForClassFields": true,
     "strict": true
   },
   "include": ["src/**/*"]
