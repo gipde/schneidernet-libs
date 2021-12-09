@@ -3,20 +3,39 @@ import { format } from 'date-fns'
 import { de } from 'date-fns/locale'
 import log from 'loglevel'
 
-log.setDefaultLevel(log.levels.TRACE)
-log.setLevel(log.levels.TRACE)
+import { plattformIsBrowser } from './sys'
 
-// Den Level
-// Datum Uhrzeit
 // Das File angeben
-// Browser und cmdline (Node)
-// Zeit seit letztem Log
+// Stacktrace
 // get Logger / vs static
+// Typeabhängiges bauen
+// Object -> stringify
+// Colors Browser + Node (https://developer.mozilla.org/en-US/docs/Web/API/console#Usage)
+
+if (process.env.NODE_ENV !== 'production') {
+  log.setDefaultLevel(log.levels.DEBUG)
+  log.setLevel(log.levels.DEBUG)
+} else {
+  log.setDefaultLevel(log.levels.WARN)
+  log.setLevel(log.levels.WARN)
+}
+
+let lastLogEntry = new Date().getTime()
+
+const levelNames = Object.keys(log.levels)
 
 const timestamp = () => format(new Date(), 'Pp,SSS', { locale: de })
 
 function getPattern(lvl: string) {
-  return `${timestamp()} ${lvl}`
+  const currentTime = new Date().getTime()
+  const diff = `+ ${currentTime - lastLogEntry}`.padStart(10)
+  lastLogEntry = currentTime
+
+  return `${timestamp()} ${lvl} ${diff}`
+}
+
+function setLevel(level: log.LogLevelDesc) {
+  log.setLevel(level)
 }
 
 function info(...msg: any) {
@@ -38,4 +57,7 @@ function trace(...msg: any) {
   log.trace(chalk.blueBright(getPattern(''), msg))
 }
 
-export { info, warn, debug, trace, error, err }
+info('Initial LogLevel: ', levelNames[log.getLevel()])
+info('we are in browser: ', plattformIsBrowser)
+
+export { info, warn, debug, trace, error, err, setLevel }

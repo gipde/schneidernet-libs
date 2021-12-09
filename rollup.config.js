@@ -31,6 +31,7 @@ export default [
     input: 'src/index.ts',
     external: ['date-fns', 'date-fns/locale', 'chalk', 'loglevel'],
     plugins: [
+      commonjs(), // convert to es modules
       typescript(), // so Rollup can convert TypeScript to JavaScript
     ],
     output: [
