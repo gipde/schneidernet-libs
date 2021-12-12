@@ -1,3 +1,4 @@
+import { startOfDay } from 'date-fns'
 import { formatDay, formatDayTime, ageInYears } from './date'
 
 test('simple Date Test', () => {
@@ -13,6 +14,17 @@ test('simple DateTime Test', () => {
 test('age', () => {
   const d = new Date('2021-11-4')
   const from = new Date('2020-11-4')
-  const age = ageInYears(d, from)
+  const age = ageInYears(from, d)
   expect(age).toBe('1.0')
+})
+
+test('age 2', () => {
+  const today = startOfDay(new Date())
+  const tenYearsBefore = new Date(
+    today.getFullYear() - 10,
+    today.getMonth(),
+    today.getDate(),
+  )
+  const age = ageInYears(tenYearsBefore, today)
+  expect(age).toBe('10.0')
 })

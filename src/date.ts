@@ -19,7 +19,7 @@ function formatDay(d?: Date | number | null): string {
 
 function ageInYears(d: Date | number | null, from?: Date | number): string {
   if (d) {
-    const diffDays = differenceInDays(d, from || new Date())
+    const diffDays = differenceInDays(from || new Date(), d)
     return (diffDays / 365).toFixed(1)
   }
   return '0'
