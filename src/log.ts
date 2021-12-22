@@ -34,8 +34,12 @@ function getPattern(lvl: string) {
   return `${timestamp()} ${lvl} ${diff}`
 }
 
-function setLevel(level: log.LogLevelDesc) {
+function setLogLevel(level: log.LogLevelDesc) {
   log.setLevel(level)
+}
+
+function getLogLevel(): string {
+  return levelNames[log.getLevel()]
 }
 
 function info(...msg: any) {
@@ -57,7 +61,7 @@ function trace(...msg: any) {
   log.trace(chalk.blueBright(getPattern(''), msg))
 }
 
-info('Initial LogLevel: ', levelNames[log.getLevel()])
-info('we are in browser: ', plattformIsBrowser)
+info(`Initial LogLevel: ${levelNames[log.getLevel()]}`)
+info(`we are in browser: ${plattformIsBrowser}`)
 
-export { info, warn, debug, trace, error, err, setLevel }
+export { info, warn, debug, trace, error, err, setLogLevel, getLogLevel }
