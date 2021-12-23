@@ -63,12 +63,12 @@ async function fbCollectionUpdateEntity<T extends FEntity | FHistoryEntity>(
             return m
           }
           if (typeof history === 'boolean') {
-            history = 'Änderung: ' + JSON.stringify(diff)
+            history = `Änderung: ${JSON.stringify(diff)}`
           }
         }
         const enriched = history ? (enrichWithHistory(history, m, user) as T) : m
         const { id, ...rest } = enriched
-        let docRef = doc(col, id)
+        const docRef = doc(col, id)
         if (docRef) {
           const cleaned = removeEmpty(rest)
           updateDoc(docRef, cleaned as any)

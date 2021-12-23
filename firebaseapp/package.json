@@ -17,7 +17,7 @@
     "check": "pnpm format && pnpm lint && pnpm test",
     "dev": "tsc  --build --verbose --watch -i",
     "pub": "pnpm check && pnpm build && pnpm publish --access public",
-    "fixReactLink": "ln -s ../../ogvapp/node_modules/react node_modules && ln -s ../../ogvapp/node_modules/react-dom node_modules"
+    "fixReactLink": "cd node_modules && ln -s ../../../ogvapp/node_modules/react . && ln -s ../../../ogvapp/node_modules/react-dom ."
   },
   "repository": {
     "type": "git",

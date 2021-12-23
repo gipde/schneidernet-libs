@@ -16,9 +16,8 @@ export function setFirebaseUser(displayName: string) {
     setUser((u) => {
       if (u) {
         return { ...u, displayName }
-      } else {
-        log.error('uiUser nicht gesetzt')
       }
+      log.error('uiUser nicht gesetzt')
     })
   } else {
     log.error('Kein Benutzer angemeldet')

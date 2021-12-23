@@ -5,11 +5,11 @@ import { Analytics, getAnalytics } from 'firebase/analytics'
 import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app'
 import { FirebasePerformance, getPerformance } from 'firebase/performance'
 
-let app: FirebaseApp,
-  firestore: Firestore,
-  analytics: Analytics,
-  auth: Auth,
-  performance: FirebasePerformance
+let app: FirebaseApp
+let firestore: Firestore
+let analytics: Analytics
+let auth: Auth
+let performance: FirebasePerformance
 
 const initFirebaseApp = (cfg: FirebaseOptions) => {
   if (app === undefined) {

@@ -7,6 +7,7 @@ specifiers:
   '@mui/lab': ^5.0.0-alpha.59
   '@mui/material': ^5.2.1
   '@mui/system': ^5.2.3
+  '@mui/types': ^7.1.0
   '@schneidernet/firebaseappp': ^0.0.9
   '@schneidernet/tools': ^0.0.10
   '@types/jest': ^27.0.3
@@ -41,8 +42,9 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.59_959bfeacefd510f0fe91892cdceed2a1
   '@mui/material': 5.2.3_3d538479bde7e11eba4bfc4d07e08be2
   '@mui/system': 5.2.3_3d538479bde7e11eba4bfc4d07e08be2
+  '@mui/types': 7.1.0_@types+react@17.0.37
   '@schneidernet/firebaseappp': link:../firebaseapp
-  '@schneidernet/tools': 0.0.10
+  '@schneidernet/tools': link:../tools
   chalk: 4.1.2
   date-fns: 2.27.0
   lodash: 4.17.21
@@ -1052,14 +1054,6 @@ packages:
 
   /@popperjs/core/2.11.0:
     resolution: {integrity: sha512-zrsUxjLOKAzdewIDRWy9nsV1GQsKBCWaGwsZQlCgr6/q+vjyZhFgqedLfFBuI9anTPEUT4APq9Mu0SZBTzIcGQ==}
-    dev: false
-
-  /@schneidernet/tools/0.0.10:
-    resolution: {integrity: sha512-gTOwXIbaP5y8Ie90wBaQIUz5fCN+XCRx/QiMJOfNYpBiN1Hz8SOCiwBE1yt/pC4D6SkcwIuAmOEMRCrn9kMWqA==}
-    dependencies:
-      chalk: 4.1.2
-      date-fns: 2.27.0
-      loglevel: 1.8.0
     dev: false
 
   /@sinonjs/commons/1.8.3:
