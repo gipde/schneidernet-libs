@@ -13,7 +13,7 @@ import Menu from '@mui/material/Menu'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/system'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 
 const drawerWidth = 240
 

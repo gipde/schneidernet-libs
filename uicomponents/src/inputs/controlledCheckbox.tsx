@@ -14,14 +14,14 @@ const ControlledCheckBox = (props: ControlledCheckBoxProps) => {
   const { control, name, label, sx } = props
   return (
     <Controller
-      name={name as any}
+      name={name}
       control={control}
       render={({ field }) => (
         <FormControlLabel
           sx={{ ...sx }}
           control={
             <Checkbox
-              checked={field.value as any}
+              checked={field.value}
               onChange={(e) => field.onChange(e.target.checked)}
             />
           }

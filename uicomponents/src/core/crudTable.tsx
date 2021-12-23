@@ -27,13 +27,13 @@ import { AlertDialog } from '../helper/alertDialog'
 
 export interface ActionButton<T> {
   name: string
-  disabled?: boolean | boolean
+  disabled?: boolean
   onClick: (_data: T) => void
 }
 
 export interface ColumnDefinition<T> {
   name: string
-  path?: string | undefined
+  path?: string
   cellRenderer?: (v: T) => ReactElement | string
   sortComparator?: (order: Order) => (a: T, b: T) => number
   style?: SxProps<Theme>
@@ -98,7 +98,7 @@ const Row: <T>(props: RowProps<T>) => React.ReactElement = (props) => {
   if (defaultEditAction) {
     resolvedActionButtons.push({
       name: 'ändern',
-      onClick: (v) => defaultEditAction(v), // FIXME -> Data
+      onClick: (v) => defaultEditAction(v),
     })
   }
   if (defaultDeleteAction) {

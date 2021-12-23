@@ -7,17 +7,14 @@ import {
   DialogTitle,
 } from '@mui/material'
 import { log } from '@schneidernet/tools'
-
 import React, { useEffect } from 'react'
-import { SubmitHandler, UseFormHandleSubmit } from 'react-hook-form'
+import { SubmitHandler } from 'react-hook-form'
 
 export interface BaseId {
   // Optional, damit eine Referenz auf ein Objekt überegeben werden kann
   baseId?: string
 }
 export interface GenericModelDialogProps<T> {
-  // Muss ein Snapshot sein, da die Daten ja verändert werden
-  // FIXME: jeweils & BaseId
   data: T
   onClose: (data?: T) => void
 }
@@ -27,7 +24,6 @@ interface FullGenericModelDialogProps<T> extends GenericModelDialogProps<T> {
   formId: string
   maxWidth?: Breakpoint
   handleSubmit: any
-  // FIXME: handleSubmit: UseFormHandleSubmit<T>
   reset: (data: T) => void
 }
 

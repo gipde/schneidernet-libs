@@ -4,15 +4,13 @@ import { dateValidator } from '@schneidernet/tools'
 import _ from 'lodash'
 import React from 'react'
 import {
-  Control,
   Controller,
   FieldErrors,
-  FieldPath,
   UseFormClearErrors,
   UseFormSetError,
 } from 'react-hook-form'
-import { DateAsTime } from '..'
 
+import { DateAsTime } from '..'
 import { StyledTextField } from './textField'
 
 interface ControlledDatePickerProps<T> {
