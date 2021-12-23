@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "lib": ["es2021", "DOM"],
+    "module": "esnext",
+    "target": "esnext",
+
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "sourceMap": true
+  }
+}

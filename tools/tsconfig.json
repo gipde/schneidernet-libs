@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "emitDeclarationOnly": true,
+
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "outDir": "./dist/types",
+    "useDefineForClassFields": true,
+    "strict": true
+  },
+  "include": ["src/**/*", "tools.umd.js"]
+}

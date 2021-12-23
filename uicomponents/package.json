@@ -1,0 +1,75 @@
+{
+  "name": "@schneidernet/uicomponents",
+  "version": "0.0.1",
+  "description": "several ui components",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "pnpm clean && tsc ",
+    "test": "jest --coverage",
+    "lint": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
+    "format": "prettier  --loglevel warn --write \"./**/*.{ts,md,js,yaml,json}\" ",
+    "formatCheck": "prettier  --check \"./**/*.{ts,tsx,md,js,jsx,yaml,json}\" ",
+    "check": "pnpm format && pnpm lint && pnpm test",
+    "dev": "tsc  --build --verbose --watch -i",
+    "pub": "pnpm check && pnpm build && pnpm publish --access public",
+    "fixReactLink": "ln -s ../../ogvapp/node_modules/react node_modules && ln -s ../../ogvapp/node_modules/react-dom node_modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gipde/schneidernet-tools.git"
+  },
+  "author": "",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/gipde/schneidernet-tools/issues"
+  },
+  "homepage": "https://github.com/gipde/schneidernet-tools#readme",
+  "dependencies": {
+    "@emotion/react": "^11.7.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.1",
+    "@mui/material": "^5.2.1",
+    "@mui/lab": "^5.0.0-alpha.59",
+    "@mui/system": "^5.2.3",
+    "@schneidernet/firebaseappp": "^0.0.9",
+    "@schneidernet/tools": "^0.0.10",
+    "chalk": "^4.1.2",
+    "date-fns": "^2.27.0",
+    "lodash": "^4.17.21",
+    "loglevel": "^1.8.0",
+    "react-hook-form": "^7.21.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "@types/lodash": "^4.14.178",
+    "@types/react": "^17.0.37",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-airbnb-typescript": "^16.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^25.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "jest": "^27.4.3",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.1",
+    "typescript": "^4.5.2"
+  },
+  "peerDependencies": {
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "pre-commit": [
+    "check"
+  ]
+}
