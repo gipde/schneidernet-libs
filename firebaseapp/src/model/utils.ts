@@ -5,8 +5,9 @@ const get = (obj: any) => (key: any) => obj[key]
 
 const arrayComparator = (diffFn: any) => (co1: any, co2: any) => {
   const r = diffFn(co1, co2)
+  const ifBoolean = _.isBoolean(r) ? r : true
   // Ergebnis hat props und damit Unterschiede || ist Boolean bei primitiven Werten
-  return _.isObject(r) && Object.keys(r).length > 0 ? false : _.isBoolean(r) ? r : true
+  return _.isObject(r) && Object.keys(r).length > 0 ? false : ifBoolean
 }
 
 const objectPropsCompareReducer =
@@ -63,7 +64,7 @@ function removeEmpty<T>(obj: T): T | T[] {
   if (Array.isArray(obj)) {
     return obj
       .map((v) => (v && typeof v === 'object' ? removeEmpty(v) : v))
-      .filter((v) => !(v == null)) as T[]
+      .filter((v) => v !== null) as T[]
   }
   return (
     Object.entries(obj)

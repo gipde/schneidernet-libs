@@ -85,12 +85,12 @@ async function fbCollectionUpdateEntity<T extends FEntity | FHistoryEntity>(
 
 function enrichWithHistory<T extends FEntity | FHistoryEntity>(
   history: string | boolean,
-  e: T | T[],
+  entity: T | T[],
   user: string | undefined,
 ): T | T[] {
   return toListOrSingle(
-    e,
-    toList(e).map((e) => {
+    entity,
+    toList(entity).map((e) => {
       if (e.id.startsWith(NEW_MODEL_ID_PREFIX)) {
         return {
           ...e,
