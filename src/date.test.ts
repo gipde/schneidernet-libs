@@ -12,9 +12,9 @@ test('simple DateTime Test', () => {
 })
 
 test('age', () => {
-  const d = new Date('2021-11-4')
   const from = new Date('2020-11-4')
-  const age = ageInYears(from, d)
+  const to = new Date('2021-11-4')
+  const age = ageInYears(from, to)
   expect(age).toBe('1.0')
 })
 

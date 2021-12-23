@@ -6,6 +6,4 @@ function camelize(str: string) {
     .replace(/\s+/g, '')
 }
 
-function noop() {}
-
-export { noop, camelize }
+export { camelize }

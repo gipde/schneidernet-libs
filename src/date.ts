@@ -1,25 +1,32 @@
 import { differenceInDays, format } from 'date-fns'
 import { de } from 'date-fns/locale'
+import { DateOrTime } from './types'
 
-function dateValidator(date: Date | number | null): boolean {
+function dateValidator(date: DateOrTime): boolean {
   return !(date === null || Number.isNaN(new Date(date).getDate()))
 }
 
-function dateFormat(d: Date | number | null | undefined, formatStr: string): string {
+function dateFormat(d: DateOrTime | undefined, formatStr: string): string {
   return d ? format(d ?? new Date(), formatStr, { locale: de }) : '-'
 }
 
-function formatDayTime(d?: Date | number | null): string {
+function formatDayTime(d?: DateOrTime): string {
   return dateFormat(d, 'Pp')
 }
 
-function formatDay(d?: Date | number | null): string {
+function formatDay(d?: DateOrTime): string {
   return dateFormat(d, 'P')
 }
 
-function ageInYears(d: Date | number | null, from?: Date | number): string {
-  if (d) {
-    const diffDays = differenceInDays(from || new Date(), d)
+/**
+ *
+ * @param from Date From
+ * @param to Date To if Specified
+ * @returns
+ */
+function ageInYears(from: DateOrTime, to?: DateOrTime): string {
+  if (from) {
+    const diffDays = differenceInDays(to || new Date(), from)
     return (diffDays / 365).toFixed(1)
   }
   return '0'
