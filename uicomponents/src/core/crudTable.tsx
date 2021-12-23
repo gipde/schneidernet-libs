@@ -54,7 +54,7 @@ interface CrudTableProps<T extends CrudTableData> {
   actionButtons?: (data: T) => ActionButton<T>[]
   columnDefinition: ColumnDefinition<T>[]
   size?: OverridableStringUnion<'small' | 'medium', TablePropsSizeOverrides>
-  defaultSortColumn?: string | undefined
+  defaultSortColumn?: string
   defaultSortDirection?: Order
   defaultActions?: DefaultActions<T>
 }
@@ -108,6 +108,13 @@ const Row: <T>(props: RowProps<T>) => React.ReactElement = (props) => {
     })
   }
 
+  const keyIcon = open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+
+  const collapseElement = !collapse ? null : (
+    <Collapse in={open} timeout="auto" unmountOnExit>
+      {collapse(data)}
+    </Collapse>
+  )
   return (
     <>
       <TableRow>
@@ -119,7 +126,7 @@ const Row: <T>(props: RowProps<T>) => React.ReactElement = (props) => {
               size="small"
               onClick={() => setOpen(!open)}
             >
-              {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+              {keyIcon}
             </IconButton>
           </TableCell>
         )}
@@ -149,11 +156,7 @@ const Row: <T>(props: RowProps<T>) => React.ReactElement = (props) => {
             style={{ paddingBottom: 0, paddingTop: 0, margin: 0 }}
             colSpan={columnDefinition.length + 2}
           >
-            {!collapse ? null : (
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                {collapse(data)}
-              </Collapse>
-            )}
+            {collapseElement}
           </TableCell>
         </TableRow>
       ) : null}
@@ -226,12 +229,17 @@ const CrudTable = <T extends CrudTableData>(props: CrudTableProps<T>) => {
     setOrderBy(colDef.name)
   }
 
+  function compare(aVal: any, bVal: any) {
+    const lessThan = aVal < bVal ? -1 : 1
+    return aVal === bVal ? 0 : lessThan
+  }
+
   const pathComparator = (path: string | undefined, orderArg: Order) => {
     return path
       ? (a: T, b: T) => {
           const aVal = _.get(a, path)
           const bVal = _.get(b, path)
-          const retval = aVal === bVal ? 0 : aVal < bVal ? -1 : 1
+          const retval = compare(aVal, bVal)
           return orderArg === 'asc' ? retval : -retval
         }
       : undefined
