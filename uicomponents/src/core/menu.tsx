@@ -1,6 +1,6 @@
 import { AccountCircle, Sync } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu'
-import { IconButton, MenuItem, Tooltip } from '@mui/material'
+import { Button, IconButton, MenuItem, Tooltip, useTheme } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -13,6 +13,7 @@ import Menu from '@mui/material/Menu'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/system'
+import { log } from '@schneidernet/tools'
 import React, { ReactElement, useState } from 'react'
 
 const drawerWidth = 240
@@ -126,53 +127,58 @@ const MainMenu = (props: MainMenuProps) => {
     </div>
   )
 
+  const t = useTheme()
+  log.debug('Theme', JSON.stringify(t.palette.primary))
+  console.log(t.palette.primary)
+
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Box sx={{ width: '65px' }} />
-          <ResponsiveBox
-            sx={{
-              position: 'absolute',
-              top: '5px',
-              filter: 'drop-shadow(0px 0px 5px #A0A0A0)',
-            }}
-          >
-            <img width={55} src={props.logo} alt="Logo" />
-          </ResponsiveBox>
-          <Tooltip title={`Version: ${props.version}` ?? 'dev'}>
-            <Typography variant="h4" noWrap component="div" sx={{ fontWeight: 500 }}>
-              OGV Hemau e.V.
-            </Typography>
-          </Tooltip>
-          <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title="Aktualisiere Daten">
-            <IconButton size="large" edge="start" color="inherit" onClick={handleSync}>
-              <Sync />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Benutzer">
+      <div style={{ border: '11 px solid black' }}>
+        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+          <Toolbar>
             <IconButton
-              size="large"
-              edge="start"
               color="inherit"
-              onClick={handleProfileMenuOpen}
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { md: 'none' } }}
             >
-              <AccountCircle />
+              <MenuIcon />
             </IconButton>
-          </Tooltip>
-        </Toolbar>
-      </AppBar>
+            <Box sx={{ width: '65px' }} />
+            <ResponsiveBox
+              sx={{
+                position: 'absolute',
+                top: '5px',
+                filter: 'drop-shadow(0px 0px 5px #A0A0A0)',
+              }}
+            >
+              <img width={55} src={props.logo} alt="Logo" />
+            </ResponsiveBox>
+            <Tooltip title={`Version: ${props.version}` ?? 'dev'}>
+              <Typography variant="h4" noWrap component="div" sx={{ fontWeight: 500 }}>
+                OGV Hemau e.V.
+              </Typography>
+            </Tooltip>
+            <Box sx={{ flexGrow: 1 }} />
+            <Tooltip title="Aktualisiere Daten">
+              <IconButton size="large" edge="start" color="inherit" onClick={handleSync}>
+                <Sync />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Benutzer">
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                onClick={handleProfileMenuOpen}
+              >
+                <AccountCircle />
+              </IconButton>
+            </Tooltip>
+          </Toolbar>
+        </AppBar>
+      </div>
       {renderMenu}
       <Drawer
         variant="temporary"
