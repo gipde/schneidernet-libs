@@ -1,6 +1,6 @@
 {
   "name": "@schneidernet/uicomponents",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "several ui components",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,7 @@
     "check": "pnpm format && pnpm lint && pnpm test",
     "dev": "tsc  --build --verbose --watch -i",
     "pub": "pnpm check && pnpm build && pnpm publish --access public",
-    "fixReactLink": "cd node_modules && ln -s ../../../ogvapp/node_modules/react . && ln -s ../../../ogvapp/node_modules/react-dom ."
+    "fixReactLink": "cd node_modules && rm react react-dom && ln -s ../../../ogvapp/node_modules/react . && ln -s ../../../ogvapp/node_modules/react-dom ."
   },
   "repository": {
     "type": "git",
@@ -37,12 +37,9 @@
     "@mui/material": "^5.2.5",
     "@mui/system": "^5.2.5",
     "@mui/types": "^7.1.0",
-    "@schneidernet/firebaseappp": "^0.0.12",
+    "@schneidernet/firebaseappp": "^0.0.13",
     "@schneidernet/tools": "^0.0.10",
-    "chalk": "^4.1.2",
-    "date-fns": "^2.27.0",
     "lodash": "^4.17.21",
-    "loglevel": "^1.8.0",
     "react-hook-form": "^7.22.5"
   },
   "devDependencies": {
@@ -60,7 +57,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "jest": "^27.4.5",
-    "pre-commit": "^1.2.2",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.1.2",
@@ -69,8 +65,5 @@
   "peerDependencies": {
     "react": "17.0.2",
     "react-dom": "17.0.2"
-  },
-  "pre-commit": [
-    "check"
-  ]
+  }
 }

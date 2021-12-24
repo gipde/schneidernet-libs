@@ -2,7 +2,7 @@ import { LocalizationProvider } from '@mui/lab'
 import DateAdapter from '@mui/lab/AdapterDateFns'
 import { log } from '@schneidernet/tools'
 import { de } from 'date-fns/locale'
-import { FirebaseOptions } from 'firebase/app'
+import { FirebaseOptions } from '@firebase/app'
 import React, { PropsWithChildren, useEffect, useState } from 'react'
 import { RecoilRoot, useRecoilSnapshot } from 'recoil'
 

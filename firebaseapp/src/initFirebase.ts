@@ -1,9 +1,9 @@
 import { Auth, getAuth } from '@firebase/auth'
 import { Firestore, getFirestore } from '@firebase/firestore'
 import { log } from '@schneidernet/tools'
-import { Analytics, getAnalytics } from 'firebase/analytics'
-import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app'
-import { FirebasePerformance, getPerformance } from 'firebase/performance'
+import { Analytics, getAnalytics } from '@firebase/analytics'
+import { FirebaseApp, FirebaseOptions, initializeApp } from '@firebase/app'
+import { FirebasePerformance, getPerformance } from '@firebase/performance'
 
 let app: FirebaseApp
 let firestore: Firestore

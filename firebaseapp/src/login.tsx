@@ -16,7 +16,7 @@ import {
   signInWithEmailAndPassword,
   signInWithRedirect,
   UserCredential,
-} from 'firebase/auth'
+} from '@firebase/auth'
 import React, { PropsWithChildren, useEffect, useState } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 
