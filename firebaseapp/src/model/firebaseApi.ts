@@ -64,7 +64,7 @@ interface SyncListI<T extends FEntity> {
   deleteEntity: (e: T) => void
   load: () => Promise<T[]>
   clear: () => Promise<string>
-  seed: (options: SeedOptions<T>) => Promise<string>
+  seed: (options: SeedOptions<T>) => Promise<[string, T[]]>
 }
 
 const entityAtom = (n: string) =>

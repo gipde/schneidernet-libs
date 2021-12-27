@@ -280,10 +280,10 @@ async function seedList<T extends FEntity>(
   opts: SeedOptions<T>,
   history: string | boolean = false,
   user?: string,
-): Promise<string> {
+): Promise<[string, T[]]> {
   const [msg, entities] = await fbCollectionSeed(col, opts, history, user)
-  setter((old) => [...old, ...entities])
-  return msg
+  await setter((old) => [...old, ...entities])
+  return [msg, entities]
 }
 
 /**

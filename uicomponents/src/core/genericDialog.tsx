@@ -31,7 +31,7 @@ const GenericModelDialog = <T extends {}>(
   props: React.PropsWithChildren<FullGenericModelDialogProps<T>>,
 ) => {
   const onSubmit: SubmitHandler<T> = (submittedData) => {
-    log.debug('Submit', submittedData)
+    log.debug('Submit', JSON.stringify(submittedData))
     props.onClose(submittedData as T)
   }
 
