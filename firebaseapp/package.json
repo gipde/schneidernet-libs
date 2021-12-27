@@ -17,7 +17,7 @@
     "check": "pnpm format && pnpm lint && pnpm test",
     "dev": "tsc  --build --verbose --watch -i",
     "pub": "pnpm check && pnpm build && pnpm publish --access public",
-    "fixReactLink": "cd node_modules && ln -s ../../../ogvapp/node_modules/react . && ln -s ../../../ogvapp/node_modules/react-dom ."
+    "fixReactLink": "cd node_modules && rm react react-dom && ln -s ../../../ogvapp/node_modules/react . && ln -s ../../../ogvapp/node_modules/react-dom ."
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,8 @@
   },
   "homepage": "https://github.com/gipde/schneidernet-firebaseappp#readme",
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@firebase/analytics": "^0.7.4",
     "@firebase/app": "^0.7.11",
     "@firebase/auth": "^0.19.4",

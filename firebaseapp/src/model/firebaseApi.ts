@@ -59,7 +59,7 @@ interface FirebaseHistoryCollectionI<T extends FEntity> {
 
 interface SyncListI<T extends FEntity> {
   addEntity: (e: T | T[]) => Promise<T | T[]>
-  addOrUpdateEntity: (o: T, e: T) => Promise<T | T[]>
+  addOrUpdateEntity: (o: T | undefined, e: T) => Promise<T | T[]>
   updateEntity: (o: T, e: T) => Promise<T | T[]>
   deleteEntity: (e: T) => void
   load: () => Promise<T[]>

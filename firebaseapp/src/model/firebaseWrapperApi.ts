@@ -1,5 +1,6 @@
 import { collection, CollectionReference, DocumentData } from '@firebase/firestore'
 import { SetterOrUpdater } from 'recoil'
+
 import {
   addEntityToList,
   addOrUpdateEntityInList,
@@ -59,7 +60,8 @@ const FirebaseCollectionSyncList: <T extends FEntity>(
   (setter: SetterOrUpdater<T[]>) => ({
     seed: (opts: SeedOptions<T>) => seedList(setter, colRef, opts),
     addEntity: (e: T | T[]) => addEntityToList(setter, colRef, e),
-    addOrUpdateEntity: (o: T, e: T) => addOrUpdateEntityInList(setter, colRef, o, e),
+    addOrUpdateEntity: (o: T | undefined, e: T) =>
+      addOrUpdateEntityInList(setter, colRef, o, e),
     updateEntity: (o: T, e: T) => updateEntityInList(setter, colRef, o, e),
     deleteEntity: (e: T) => removeEntityFromList(setter, colRef, e),
     clear: () => clearList(setter, colRef),
@@ -94,7 +96,7 @@ const FirebaseHistoryCollectionSyncList: <T extends FEntity>(
   (setter: SetterOrUpdater<T[]>, history?: string | boolean, user?: string) => ({
     seed: (opts: SeedOptions<T>) => seedList(setter, ref, opts, history, user),
     addEntity: (e: T | T[]) => addEntityToList(setter, ref, e, history, user),
-    addOrUpdateEntity: (o: T, e: T) =>
+    addOrUpdateEntity: (o: T | undefined, e: T) =>
       addOrUpdateEntityInList(setter, ref, o, e, history, user),
     updateEntity: (o: T, e: T) => updateEntityInList(setter, ref, o, e, history, user),
     deleteEntity: (e: T) => removeEntityFromList(setter, ref, e),

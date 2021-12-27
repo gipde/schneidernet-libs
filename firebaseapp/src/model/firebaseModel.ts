@@ -175,7 +175,7 @@ async function fbCollectionClear<T extends FEntity>(
   list: T[],
 ) {
   await Promise.all(list.map((e) => fbCollectionRemoveEntity(col, e)))
-  const retval = `Collection ${col.id} cleared (${list.length} elements)`
+  const retval = `${col.id} gelöscht`
   log.debug(retval)
   return retval
 }
@@ -216,14 +216,15 @@ async function addEntityToList<T extends FEntity>(
 async function addOrUpdateEntityInList<T extends FEntity>(
   setter: SetterOrUpdater<T[]>,
   col: CollectionReference<DocumentData>,
-  old: T[] | T,
+  old: T[] | T | undefined,
   element: T[] | T,
   history: string | boolean = false,
   user?: string,
 ): Promise<T[] | T> {
-  const e = toList(element)[0].id.startsWith(NEW_MODEL_ID_PREFIX)
-    ? await fbCollectionAddEntity(col, element, history, user)
-    : await fbCollectionUpdateEntity(col, old, element, history, user)
+  const e =
+    !old || toList(element)[0].id.startsWith(NEW_MODEL_ID_PREFIX)
+      ? await fbCollectionAddEntity(col, element, history, user)
+      : await fbCollectionUpdateEntity(col, old, element, history, user)
   const tmpList = toList(e)
   setter(listUpdater<T>(tmpList))
   return e
@@ -298,13 +299,9 @@ const listUpdater =
 const toList = <T>(element: T | T[]) => (element instanceof Array ? element : [element])
 const toListOrSingle = <T>(input: T | T[], list: T[]) =>
   input instanceof Array ? list : list[0]
-function getOldFromList<T extends FEntity>(element: T, list: T[]) {
-  const old = list.find((e) => e.id === element.id)
-  if (!old) {
-    throw new Error('Element in Liste nicht gefunden')
-  } else {
-    return old
-  }
+
+function getOldFromList<T extends FEntity>(element: T, list: T[]): T | undefined {
+  return list.find((e) => e.id === element.id)
 }
 
 export {

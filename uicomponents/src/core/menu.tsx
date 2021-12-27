@@ -1,9 +1,8 @@
 import { AccountCircle, Sync } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu'
-import { Button, IconButton, MenuItem, Tooltip, useTheme } from '@mui/material'
+import { IconButton, MenuItem, Tooltip, useTheme } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
-import CssBaseline from '@mui/material/CssBaseline'
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -13,6 +12,7 @@ import Menu from '@mui/material/Menu'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/system'
+import { User } from '@schneidernet/firebaseappp'
 import { log } from '@schneidernet/tools'
 import React, { ReactElement, useState } from 'react'
 
@@ -40,7 +40,7 @@ interface MainMenuProps {
   logo: any
   sync: any
   logout: any
-  user: string
+  user?: User
 }
 
 const MainMenu = (props: MainMenuProps) => {
@@ -55,7 +55,8 @@ const MainMenu = (props: MainMenuProps) => {
     setAnchorEl(event.currentTarget)
 
   const handleSync = async () => {
-    props.sync()
+    await props.sync()
+    log.debug('Data synced')
   }
 
   const handleMenuClose = () => setAnchorEl(null)
@@ -102,7 +103,8 @@ const MainMenu = (props: MainMenuProps) => {
         }}
       >
         <Box sx={{ color: 'secondary.contrastText' }}>
-          <Typography variant="body2">{props.user}</Typography>
+          <Typography variant="body2">{props.user?.displayName}</Typography>
+          <Typography variant="body2">{props.user?.email}</Typography>
         </Box>
       </Box>
       <MenuItem onClick={logout}>Logout</MenuItem>
@@ -133,52 +135,50 @@ const MainMenu = (props: MainMenuProps) => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <div style={{ border: '11 px solid black' }}>
-        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { md: 'none' } }}
-            >
-              <MenuIcon />
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { md: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Box sx={{ width: '65px' }} />
+          <ResponsiveBox
+            sx={{
+              position: 'absolute',
+              top: '5px',
+              filter: 'drop-shadow(0px 0px 5px #A0A0A0)',
+            }}
+          >
+            <img width={55} src={props.logo} alt="Logo" />
+          </ResponsiveBox>
+          <Tooltip title={`Version: ${props.version}` ?? 'dev'}>
+            <Typography variant="h4" noWrap component="div" sx={{ fontWeight: 500 }}>
+              OGV Hemau e.V.
+            </Typography>
+          </Tooltip>
+          <Box sx={{ flexGrow: 1 }} />
+          <Tooltip title="Aktualisiere Daten">
+            <IconButton size="large" edge="start" color="inherit" onClick={handleSync}>
+              <Sync />
             </IconButton>
-            <Box sx={{ width: '65px' }} />
-            <ResponsiveBox
-              sx={{
-                position: 'absolute',
-                top: '5px',
-                filter: 'drop-shadow(0px 0px 5px #A0A0A0)',
-              }}
+          </Tooltip>
+          <Tooltip title="Benutzer">
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              onClick={handleProfileMenuOpen}
             >
-              <img width={55} src={props.logo} alt="Logo" />
-            </ResponsiveBox>
-            <Tooltip title={`Version: ${props.version}` ?? 'dev'}>
-              <Typography variant="h4" noWrap component="div" sx={{ fontWeight: 500 }}>
-                OGV Hemau e.V.
-              </Typography>
-            </Tooltip>
-            <Box sx={{ flexGrow: 1 }} />
-            <Tooltip title="Aktualisiere Daten">
-              <IconButton size="large" edge="start" color="inherit" onClick={handleSync}>
-                <Sync />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Benutzer">
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                onClick={handleProfileMenuOpen}
-              >
-                <AccountCircle />
-              </IconButton>
-            </Tooltip>
-          </Toolbar>
-        </AppBar>
-      </div>
+              <AccountCircle />
+            </IconButton>
+          </Tooltip>
+        </Toolbar>
+      </AppBar>
       {renderMenu}
       <Drawer
         variant="temporary"
