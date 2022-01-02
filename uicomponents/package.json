@@ -1,6 +1,6 @@
 {
   "name": "@schneidernet/uicomponents",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "several ui components",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,11 +12,8 @@
     "build": "pnpm clean && tsc ",
     "test": "jest --coverage",
     "lint": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
-    "format": "prettier  --loglevel warn --write \"./**/*.{ts,md,js,yaml,json}\" ",
-    "formatCheck": "prettier  --check \"./**/*.{ts,tsx,md,js,jsx,yaml,json}\" ",
-    "check": "pnpm format && pnpm lint && pnpm test",
     "dev": "tsc  --build --verbose --watch -i",
-    "pub": "pnpm check && pnpm build && pnpm publish --access public",
+    "pub": "pnpm build && pnpm publish --access public --no-git-checks",
     "fixReactLink": "cd node_modules && rm react react-dom && ln -s ../../../ogvapp/node_modules/react . && ln -s ../../../ogvapp/node_modules/react-dom ."
   },
   "repository": {

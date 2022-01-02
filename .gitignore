@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+dist/
+tools/libtest/webapp_js/tools.umd.js

@@ -1,6 +1,6 @@
 {
   "name": "@schneidernet/tools",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "several tools",
   "main": "dist/tools.cjs.js",
   "module": "dist/tools.esm.js",
@@ -16,6 +16,7 @@
     "lint": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
     "format": "prettier  --loglevel warn --write \"./**/*.{ts,md,js,yaml,json}\" ",
     "formatCheck": "prettier  --check \"./**/*.{ts,tsx,md,js,jsx,yaml,json}\" ",
+    "dev": "tsc  --build --verbose --watch -i",
     "check": "pnpm format && pnpm lint && pnpm test",
     "pub": "pnpm check && pnpm build && pnpm publish"
   },

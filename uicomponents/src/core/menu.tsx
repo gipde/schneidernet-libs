@@ -1,6 +1,6 @@
 import { AccountCircle, Sync } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu'
-import { IconButton, MenuItem, Tooltip, useTheme } from '@mui/material'
+import { IconButton, MenuItem, Tooltip } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
@@ -128,10 +128,6 @@ const MainMenu = (props: MainMenuProps) => {
       </Box>
     </div>
   )
-
-  const t = useTheme()
-  log.debug('Theme', JSON.stringify(t.palette.primary))
-  console.log(t.palette.primary)
 
   return (
     <Box sx={{ display: 'flex' }}>

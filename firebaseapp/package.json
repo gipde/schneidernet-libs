@@ -1,6 +1,6 @@
 {
   "name": "@schneidernet/firebaseappp",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "framework for firebaseappp",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,12 +11,8 @@
     "clean": "rimraf dist",
     "build": "pnpm clean  && tsc -p ./tsconfig.json",
     "test": "jest --coverage",
-    "lint": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
-    "format": "prettier  --loglevel warn --write \"./**/*.{ts,md,js,yaml,json}\" ",
-    "formatCheck": "prettier  --check \"./**/*.{ts,tsx,md,js,jsx,yaml,json}\" ",
-    "check": "pnpm format && pnpm lint && pnpm test",
     "dev": "tsc  --build --verbose --watch -i",
-    "pub": "pnpm check && pnpm build && pnpm publish --access public",
+    "pub": "pnpm build && pnpm publish --access public --no-git-checks",
     "fixReactLink": "cd node_modules && rm react react-dom && ln -s ../../../ogvapp/node_modules/react . && ln -s ../../../ogvapp/node_modules/react-dom ."
   },
   "repository": {
@@ -43,7 +39,7 @@
     "@mui/styles": "^5.2.3",
     "@mui/system": "^5.2.5",
     "@mui/types": "^7.1.0",
-    "@schneidernet/tools": "0.0.10",
+    "@schneidernet/tools": "0.0.11",
     "date-fns": "^2.27.0",
     "lodash": "^4.17.21",
     "nanoid": "^3.1.30",
@@ -55,9 +51,6 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^21.0.1",
-    "@rollup/plugin-node-resolve": "^13.1.1",
-    "@rollup/plugin-typescript": "^8.3.0",
     "@types/jest": "^27.0.3",
     "@types/lodash": "^4.14.178",
     "@types/react": "^17.0.38",
@@ -74,8 +67,6 @@
     "jest": "^27.4.5",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.62.0",
-    "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^27.1.2",
     "typescript": "^4.5.4"
   },

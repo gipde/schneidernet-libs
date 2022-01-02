@@ -1,3 +1,5 @@
+/* eslint no-restricted-syntax: ["error"] */
+
 import { LocalizationProvider } from '@mui/lab'
 import DateAdapter from '@mui/lab/AdapterDateFns'
 import { log } from '@schneidernet/tools'
@@ -18,6 +20,7 @@ const DebugObserver = () => {
   useEffect(() => {
     log.debug('The following atoms were modified:')
     for (const node of snapshot.getNodes_UNSTABLE({ isModified: true })) {
+      // eslint-disable-next-line no-console
       console.log(node.key, snapshot.getLoadable(node))
     }
   }, [snapshot])

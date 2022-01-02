@@ -17,9 +17,24 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json',
+    project: './tsconfig.base.json',
+    extraFileExtensions: ['.css', '.svg'],
     ecmaVersion: 13,
   },
+  settings: {
+    jest: {
+      version: 27,
+    },
+  },
   plugins: ['simple-import-sort', 'prettier', 'jest'],
-  rules: { 'react/jsx-filename-extension': 'off', 'import/prefer-default-export': 'off' },
+  rules: {
+    'react/jsx-filename-extension': 'off',
+    'import/prefer-default-export': 'off',
+    'no-restricted-syntax': [
+      'error',
+      'ForInStatement',
+      'LabeledStatement',
+      'WithStatement',
+    ],
+  },
 }

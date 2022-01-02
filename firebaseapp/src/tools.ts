@@ -13,11 +13,12 @@ export function setFirebaseUser(displayName: string) {
   const setUser = useSetRecoilState(uiUserAtom)
   if (auth.currentUser) {
     updateProfile(auth.currentUser, { displayName })
-    setUser((u) => {
-      if (u) {
-        return { ...u, displayName }
+    setUser((oldUser) => {
+      if (oldUser) {
+        return { ...oldUser, displayName }
       }
-      log.error('uiUser nicht gesetzt')
+      log.error('uiUser nicht gesetzt. Deshalb kann der DisplayName nicht gesetzt werden')
+      return undefined
     })
   } else {
     log.error('Kein Benutzer angemeldet')
