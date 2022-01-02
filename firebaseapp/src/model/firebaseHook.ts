@@ -119,7 +119,8 @@ const listUpdater =
 function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
   const setList = useSetRecoilState(listFamily<T>(colName))
 
-  const user = useRecoilValue(uiUserAtom)
+  const u = useRecoilValue(uiUserAtom)
+  const user = u ? `${u.displayName} (${u.email})` : 'unbekannter Nutzer'
 
   const getListSnapshot = useRecoilCallback(({ snapshot }) => () => {
     return snapshot.getPromise(listFamily<T>(colName))
@@ -143,7 +144,7 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
     const list: OptionalId<T>[] = asArray(element)
 
     const enrichtedList: OptionalId<T>[] = list.map((e: OptionalId<T>) =>
-      history ? enrichWithHistory<T>(history, e, user?.displayName) : e,
+      history ? enrichWithHistory<T>(history, e, user) : e,
     )
 
     const fbDocs = await Promise.all(
@@ -158,7 +159,7 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
         collection.id
       }`,
     )
-    return asListOrSingle<T>(element as any, fixedIds)
+    return asListOrSingle<T>(element as T | T[], fixedIds)
   }
 
   /**
@@ -188,7 +189,7 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
         }
 
         const enriched = history
-          ? (enrichWithHistory(history, e, user?.displayName, JSON.stringify(diff)) as T)
+          ? (enrichWithHistory(history, e, user, JSON.stringify(diff)) as T)
           : e
 
         const { id, ...rest } = enriched
