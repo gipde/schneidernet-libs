@@ -27,43 +27,44 @@ interface FullGenericModelDialogProps<T> extends GenericModelDialogProps<T> {
   reset: (data: T) => void
 }
 
-const GenericModelDialog = <T extends {}>(
+function GenericModelDialog<T extends {}>(
   props: React.PropsWithChildren<FullGenericModelDialogProps<T>>,
-) => {
+) {
+  const { onClose, data, formId, reset, title, children, handleSubmit, maxWidth } = props
+
   const onSubmit: SubmitHandler<T> = (submittedData) => {
     log.debug('Submit', JSON.stringify(submittedData))
-    props.onClose(submittedData as T)
+    onClose(submittedData as T)
   }
 
   // Setze Feldwerte
   useEffect(() => {
-    if (props.data) {
-      log.debug('Setting Dialog to ', props.formId, props.data)
-      props.reset(props.data)
+    if (data) {
+      log.debug('Setting Dialog to ', formId, data)
+      reset(data)
     }
-  }, [!!props.data])
+  }, [!!data])
 
   return (
-    <form id={props.formId} onSubmit={props.handleSubmit(onSubmit)}>
-      <Dialog
-        maxWidth={props.maxWidth || 'sm'}
-        fullWidth
-        open={!!props.data}
-        onClose={() => props.onClose()}
-      >
-        <DialogTitle>{props.title}</DialogTitle>
-        <DialogContent>{props.children}</DialogContent>
+    <form id={formId} onSubmit={handleSubmit(onSubmit)}>
+      <Dialog maxWidth={maxWidth} fullWidth open={!!data} onClose={() => onClose()}>
+        <DialogTitle>{title}</DialogTitle>
+        <DialogContent>{children}</DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={() => props.onClose()}>
+          <Button variant="outlined" onClick={() => onClose()}>
             Abbrechen
           </Button>
-          <Button variant="outlined" type="submit" form={props.formId}>
+          <Button variant="outlined" type="submit" form={formId}>
             Speichern
           </Button>
         </DialogActions>
       </Dialog>
     </form>
   )
+}
+
+GenericModelDialog.defaultProps = {
+  maxWidth: 'sm',
 }
 
 export { GenericModelDialog }

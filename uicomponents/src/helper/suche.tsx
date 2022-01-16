@@ -10,7 +10,7 @@ interface SucheProps {
   handleSearch: (_search: string[]) => void
 }
 
-const Suche = (props: SucheProps) => {
+function Suche(props: SucheProps) {
   const { title, defaultValue, handleSearch } = props
   const [search, setSearch] = useState<string[]>(defaultValue ?? [])
 
@@ -25,7 +25,7 @@ const Suche = (props: SucheProps) => {
   }
 
   return (
-    <Tooltip title={title ?? 'Suche'}>
+    <Tooltip title={title as string}>
       <StyledTextField
         value={search.join(' ')}
         label="Suche"
@@ -47,6 +47,11 @@ const Suche = (props: SucheProps) => {
       />
     </Tooltip>
   )
+}
+
+Suche.defaultProps = {
+  title: 'Suche',
+  defaultValue: [],
 }
 
 export { Suche }

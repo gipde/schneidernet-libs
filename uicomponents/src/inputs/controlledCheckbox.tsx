@@ -10,7 +10,7 @@ interface ControlledCheckBoxProps {
   sx?: SxProps<Theme>
 }
 
-const ControlledCheckBox = (props: ControlledCheckBoxProps) => {
+function ControlledCheckBox(props: ControlledCheckBoxProps) {
   const { control, name, label, sx } = props
   return (
     <Controller

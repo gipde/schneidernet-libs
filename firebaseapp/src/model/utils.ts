@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 import { log } from '@schneidernet/tools'
 import _ from 'lodash'
 
@@ -29,8 +30,8 @@ const objectPropsCompareReducer =
 const objDiff = (o1: any, o2: any): any => {
   log.trace(
     `comparing ${JSON.stringify(o1)} (${typeof o1}) <> ${JSON.stringify(
-      o2,
-    )} (${typeof o2}) Array:${_.isArray(o1)}`,
+      o2
+    )} (${typeof o2}) Array:${_.isArray(o1)}`
   )
 
   if (_.isArray(o1)) {
@@ -66,12 +67,13 @@ function removeEmpty<T>(obj: T): T | T[] {
       .map((v) => (v && typeof v === 'object' ? removeEmpty(v) : v))
       .filter((v) => v !== null) as T[]
   }
-  return (
-    Object.entries(obj)
-      .map(([k, v]) => [k, v && typeof v === 'object' ? removeEmpty(v) : v])
-      // eslint-disable-next-line no-return-assign,no-param-reassign
-      .reduce((a, [k, v]) => (v == null ? a : (((a as any)[k] = v), a)), {}) as T
-  )
+  return Object.entries(obj)
+    .map(([k, v]) => [k, v && typeof v === 'object' ? removeEmpty(v) : v])
+    .reduce(
+      // eslint-disable-next-line no-param-reassign
+      (a, [k, v]) => (v == null ? a : (((a as any)[k] = v), a)),
+      {}
+    ) as T
 }
 
 export { objDiff, removeEmpty }

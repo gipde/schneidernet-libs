@@ -9,7 +9,6 @@ import {
   UseFormClearErrors,
   UseFormSetError,
 } from 'react-hook-form'
-
 import { DateAsTime } from '../helper/types'
 import { StyledTextField } from './textField'
 
@@ -24,12 +23,9 @@ interface ControlledDatePickerProps<T> {
   type?: 'DateTimePicker' | 'DatePicker'
 }
 
-const ControlledDatePicker = <T,>(
-  props: ControlledDatePickerProps<T> & TextFieldProps,
-) => {
+function ControlledDatePicker<T>(props: ControlledDatePickerProps<T> & TextFieldProps) {
   const defaultProps: Partial<ControlledDatePickerProps<T> & TextFieldProps> = {
     size: 'medium',
-    type: 'DatePicker',
   }
 
   const { id, label, control, setError, clearErrors, errors, size, sx, type } = {
@@ -80,6 +76,11 @@ const ControlledDatePicker = <T,>(
       }
     />
   )
+}
+
+ControlledDatePicker.defaultProps = {
+  mask: undefined,
+  type: 'DatePicker',
 }
 
 export { ControlledDatePicker }

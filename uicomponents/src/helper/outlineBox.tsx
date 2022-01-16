@@ -6,7 +6,7 @@ interface OutlineBoxProps {
   sx?: SxProps<Theme>
 }
 
-const OutlineBox = (props: OutlineBoxProps & PropsWithChildren<ReactNode>) => {
+function OutlineBox(props: OutlineBoxProps & PropsWithChildren<ReactNode>) {
   const { sx, children } = props
   return (
     <Paper

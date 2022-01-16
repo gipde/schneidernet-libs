@@ -17,7 +17,9 @@ export function setFirebaseUser(displayName: string) {
       if (oldUser) {
         return { ...oldUser, displayName }
       }
-      log.error('uiUser nicht gesetzt. Deshalb kann der DisplayName nicht gesetzt werden')
+      log.error(
+        'uiUser nicht gesetzt. Deshalb kann der DisplayName nicht gesetzt werden'
+      )
       return undefined
     })
   } else {

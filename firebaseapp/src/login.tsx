@@ -1,4 +1,14 @@
 import {
+  getRedirectResult,
+  GoogleAuthProvider,
+  OAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithRedirect,
+  UserCredential,
+} from '@firebase/auth'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import {
+  Avatar,
   Box,
   Button,
   CssBaseline,
@@ -9,27 +19,28 @@ import {
 } from '@mui/material'
 import { SxProps, TypographyProps } from '@mui/system'
 import { log } from '@schneidernet/tools'
-import {
-  getRedirectResult,
-  GoogleAuthProvider,
-  OAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithRedirect,
-  UserCredential,
-} from '@firebase/auth'
 import React, { PropsWithChildren, useEffect, useState } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-
 import { auth } from './initFirebase'
 import { uiIsAdminAtom, uiUserAtom } from './model/ui'
 
 const appleLogo = (
-  <svg width="80" height="30" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="80"
+    height="30"
+    viewBox="0 0 1000 1000"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path d="M702 960c-54.2 52.6-114 44.4-171 19.6-60.6-25.3-116-26.9-180 0-79.7 34.4-122 24.4-170-19.6-271-279-231-704 77-720 74.7 4 127 41.3 171 44.4 65.4-13.3 128-51.4 198-46.4 84.1 6.8 147 40 189 99.7-173 104-132 332 26.9 396-31.8 83.5-72.6 166-141 227zM423 237C414.9 113 515.4 11 631 1c15.9 143-130 250-208 236z" />
   </svg>
 )
 const googleLogo = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="80" height="30" viewBox="0 0 300 90">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="80"
+    height="30"
+    viewBox="0 0 300 90"
+  >
     <path
       fill="#EA4335"
       d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z"
@@ -54,7 +65,7 @@ const googleLogo = (
   </svg>
 )
 
-const Copyright = (props: TypographyProps) => {
+function Copyright(props: TypographyProps) {
   return (
     <Typography
       variant="body2"
@@ -66,8 +77,8 @@ const Copyright = (props: TypographyProps) => {
       {'Copyright © '}
       <Link color="inherit" href="https://ogvhemau.web.app/">
         OGV Hemau
-      </Link>{' '}
-      {new Date().getFullYear()}.
+      </Link>
+      {new Date().getFullYear()}
     </Typography>
   )
 }
@@ -78,37 +89,42 @@ interface LoginProps {
   afterLogin?: () => void
 }
 
-const Login = (props: PropsWithChildren<LoginProps>) => {
+function Login(props: PropsWithChildren<LoginProps>) {
   const [errorMessage, setErrorMessage] = React.useState('')
   const [redirected, setRedirected] = useState(true)
   const [uiUser, setUiUser] = useRecoilState(uiUserAtom)
   const [uiInited, setUiInited] = useState(false)
   const setAdmin = useSetRecoilState(uiIsAdminAtom)
 
+  const { afterLogin, children, background, logo } = props
+
   const setUser = () => {
     if (auth?.currentUser) {
       // we are already have a valid login
+      log.debug('current Firebaseuser:', JSON.stringify(auth.currentUser))
       if (!uiUser) {
-        setUiUser({
+        const user = {
           displayName: auth.currentUser.displayName || '',
           email: auth.currentUser.email || '',
-        })
+        }
+        log.debug('setting UIUser to:', JSON.stringify(user))
+        setUiUser(user)
 
         if (auth.currentUser.displayName === 'Werner Schneider') {
           setAdmin(true)
         }
       }
 
-      if (props.afterLogin && !uiInited) {
+      if (afterLogin && !uiInited) {
         setUiInited(true)
-        props.afterLogin()
+        afterLogin()
       }
     }
   }
 
   const handleLogin = (
     message: string,
-    loginFn: () => Promise<UserCredential | null>,
+    loginFn: () => Promise<UserCredential | null>
   ) => {
     // we have to login
     loginFn()
@@ -148,27 +164,29 @@ const Login = (props: PropsWithChildren<LoginProps>) => {
 
     if (email && password) {
       handleLogin('Benutzername oder Passwort falsch', () =>
-        signInWithEmailAndPassword(auth, email.toString(), password.toString()),
+        signInWithEmailAndPassword(auth, email.toString(), password.toString())
       )
     }
   }
 
   const handleGoogle = () => {
     handleLogin('Fehler beim Login mit Google', () =>
-      signInWithRedirect(auth, new GoogleAuthProvider()),
+      signInWithRedirect(auth, new GoogleAuthProvider())
     )
   }
 
   const handleApple = () => {
     handleLogin('Fehler beim Login mit Apple', () =>
-      signInWithRedirect(auth, new OAuthProvider('apple.com')),
+      signInWithRedirect(auth, new OAuthProvider('apple.com'))
     )
   }
 
-  return redirected || auth.currentUser ? (
-    <>{props.children}</>
-  ) : (
-    <Box sx={props.background}>
+  if (redirected || auth.currentUser) {
+    return children
+  }
+
+  return (
+    <Box sx={background}>
       <CssBaseline />
       <Box
         sx={{
@@ -182,13 +200,13 @@ const Login = (props: PropsWithChildren<LoginProps>) => {
           alignItems: 'center',
         }}
       >
-        {/* <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
           <LockOutlinedIcon />
-        </Avatar> */}
+        </Avatar>
         <Typography component="h1" variant="h5">
           OGV Hemau
         </Typography>
-        <img width={55} src={props.logo} alt="Logo" />
+        <img width={55} src={logo} alt="Logo" />
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
             sx={{ backgroundColor: 'whiteSmoke' }}
@@ -211,7 +229,10 @@ const Login = (props: PropsWithChildren<LoginProps>) => {
             id="password"
             autoComplete="current-password"
           />
-          <Typography variant="h6" sx={{ textAlign: 'center', color: 'error.main' }}>
+          <Typography
+            variant="h6"
+            sx={{ textAlign: 'center', color: 'error.main' }}
+          >
             {errorMessage}
           </Typography>
           <Button
@@ -252,6 +273,10 @@ const Login = (props: PropsWithChildren<LoginProps>) => {
       </Box>
     </Box>
   )
+}
+
+Login.defaultProps = {
+  afterLogin: undefined,
 }
 
 export { Login }

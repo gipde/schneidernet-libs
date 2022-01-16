@@ -71,7 +71,7 @@ interface RowProps<T> {
 
 export type Order = 'asc' | 'desc'
 
-const Row: <T>(props: RowProps<T>) => React.ReactElement = (props) => {
+function Row<T>(props: RowProps<T>): React.ReactElement {
   const {
     id,
     data,
@@ -188,7 +188,13 @@ const Row: <T>(props: RowProps<T>) => React.ReactElement = (props) => {
   )
 }
 
-const CrudTable = <T extends CrudTableData>(props: CrudTableProps<T>) => {
+Row.defaultProps = {
+  collapse: undefined,
+  defaultDeleteAction: undefined,
+  defaultEditAction: undefined,
+}
+
+function CrudTable<T extends CrudTableData>(props: CrudTableProps<T>) {
   const {
     columnDefinition,
     data,
@@ -197,6 +203,7 @@ const CrudTable = <T extends CrudTableData>(props: CrudTableProps<T>) => {
     defaultSortColumn,
     defaultSortDirection,
     defaultActions,
+    size,
   } = props
 
   const [page, setPage] = useState(0)
@@ -234,8 +241,8 @@ const CrudTable = <T extends CrudTableData>(props: CrudTableProps<T>) => {
     return aVal === bVal ? 0 : lessThan
   }
 
-  const pathComparator = (path: string | undefined, orderArg: Order) => {
-    return path
+  const pathComparator = (path: string | undefined, orderArg: Order) =>
+    path
       ? (a: T, b: T) => {
           const aVal = _.get(a, path)
           const bVal = _.get(b, path)
@@ -243,7 +250,6 @@ const CrudTable = <T extends CrudTableData>(props: CrudTableProps<T>) => {
           return orderArg === 'asc' ? retval : -retval
         }
       : undefined
-  }
 
   const getComparator = (orderByArg: string | undefined, orderArg: Order) => {
     const column = columnDefinition.find((c) => c.name === orderByArg)
@@ -256,7 +262,7 @@ const CrudTable = <T extends CrudTableData>(props: CrudTableProps<T>) => {
   return (
     <div>
       <TableContainer sx={{ width: '100%' }}>
-        <Table aria-label="collapsible table" size="small">
+        <Table aria-label="collapsible table" size={size}>
           <TableHead>
             <TableRow>
               {!collapse ? null : <TableCell />}
@@ -315,6 +321,15 @@ const CrudTable = <T extends CrudTableData>(props: CrudTableProps<T>) => {
       ) : null}
     </div>
   )
+}
+
+CrudTable.defaultProps = {
+  collapse: undefined,
+  actionButtons: undefined,
+  size: 'small',
+  defaultSortColumn: undefined,
+  defaultSortDirection: undefined,
+  defaultActions: undefined,
 }
 
 export { CrudTable }

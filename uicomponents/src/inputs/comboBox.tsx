@@ -18,7 +18,7 @@ interface ComboBoxProps {
   onClear?: () => void
 }
 
-const ComboBox = (props: ComboBoxProps & TextFieldProps) => {
+function ComboBox(props: ComboBoxProps & TextFieldProps) {
   const { onClear, entries: values, ...restProps } = props
 
   return (

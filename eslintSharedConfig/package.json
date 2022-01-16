@@ -1,0 +1,32 @@
+{
+  "name": "@schneidernet/eslint-config",
+  "version": "0.0.9",
+  "description": "Shareabble ESlint Config",
+  "main": "index.js",
+  "author": "Werner Schneider",
+  "license": "ISC",
+  "dependencies": {
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^16.1.0",
+    "eslint-config-prettier": "^8.3.0"
+  },
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": ">=5",
+    "@typescript-eslint/parser": ">=5",
+    "eslint": ">=3",
+    "eslint-plugin-import": ">=2.25.3 <3.0.0",
+    "eslint-plugin-jest": ">=25",
+    "eslint-plugin-jsx-a11y": ">=5",
+    "eslint-plugin-prettier": ">=4",
+    "eslint-plugin-react": ">=7",
+    "eslint-plugin-react-hooks": ">=4",
+    "eslint-plugin-sonarjs": ">=0.11.0"
+  },
+  "keywords": [
+    "eslint",
+    "eslintconfig"
+  ],
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^4.3.0"
+  }
+}

@@ -23,7 +23,7 @@ interface GenericTabProps {
   actionButtons?: (_tabName: string) => ActionButton[]
 }
 
-const TabPanel = (props: TabPanelProps) => {
+function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props
 
   return (
@@ -53,7 +53,7 @@ function a11yProps(index: number) {
   }
 }
 
-const GenericTab = (props: GenericTabProps) => {
+function GenericTab(props: GenericTabProps) {
   const [activeTabPanel, setActiveTabPanel] = React.useState(0)
   const { tabs, actionButtons } = props
 
@@ -99,6 +99,10 @@ const GenericTab = (props: GenericTabProps) => {
       ))}
     </Box>
   )
+}
+
+GenericTab.defaultProps = {
+  actionButtons: undefined,
 }
 
 export { GenericTab }

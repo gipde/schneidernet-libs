@@ -18,11 +18,13 @@ describe('tools-suite', () => {
   })
 
   test('simpleDeepObject', () => {
-    expect(objDiff({ a: { a: 1, b: 2 } }, { a: { a: 1, b: 3 } })).toStrictEqual({
-      a: { b: 2 },
-    })
+    expect(objDiff({ a: { a: 1, b: 2 } }, { a: { a: 1, b: 3 } })).toStrictEqual(
+      {
+        a: { b: 2 },
+      }
+    )
     expect(
-      objDiff({ a: { a: 2, b: 2, c: 3 } }, { a: { a: 1, b: 3, c: 3 } }),
+      objDiff({ a: { a: 2, b: 2, c: 3 } }, { a: { a: 1, b: 3, c: 3 } })
     ).toStrictEqual({
       a: { a: 2, b: 2 },
     })
@@ -31,8 +33,16 @@ describe('tools-suite', () => {
         //
         { a: { a: 2, b: 2, c: 3 }, c: 4 },
         //
-        { a: { a: 1, b: 3, c: 3, d: 4 }, b: 1 },
-      ),
+        {
+          a: {
+            a: 1,
+            b: 3,
+            c: 3,
+            d: 4,
+          },
+          b: 1,
+        }
+      )
     ).toStrictEqual({
       a: { a: 2, b: 2, d: 4 },
       b: 1,
@@ -92,8 +102,8 @@ describe('tools-suite', () => {
           a: 1,
           b: [1, 2, 3, 5],
           c: 1,
-        },
-      ),
+        }
+      )
     ).toStrictEqual({ b: [5, 4], d: 2, c: 1 })
   })
 

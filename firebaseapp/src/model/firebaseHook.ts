@@ -55,7 +55,7 @@ const filterFamily = selectorFamily<
       return (filterFn: any) => filterFn(list)
     },
 }) as <T extends FBEntity>(
-  param: string,
+  param: string
 ) => RecoilValueReadOnly<(filterFn: (all: T[]) => T[]) => T[]>
 
 /**
@@ -70,7 +70,7 @@ function enrichWithHistory<T extends FBEntity>(
   history: string | boolean,
   entity: OptionalId<T>,
   user: string | undefined,
-  diff?: string,
+  diff?: string
 ): OptionalId<T> {
   if (!entity.id) {
     // Keine ID
@@ -116,19 +116,22 @@ const listUpdater =
  * @param options
  * @returns
  */
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
   const setList = useSetRecoilState(listFamily<T>(colName))
 
   const u = useRecoilValue(uiUserAtom)
   const user = u ? `${u.displayName} (${u.email})` : 'unbekannter Nutzer'
 
-  const getListSnapshot = useRecoilCallback(({ snapshot }) => () => {
-    return snapshot.getPromise(listFamily<T>(colName))
-  })
+  const getListSnapshot = useRecoilCallback(
+    ({ snapshot }) =>
+      () =>
+        snapshot.getPromise(listFamily<T>(colName))
+  )
 
   const collection = fbCollection(
     firestore,
-    process.env.NODE_ENV === 'production' ? colName : `test_${colName}`,
+    process.env.NODE_ENV === 'production' ? colName : `test_${colName}`
   )
 
   /**
@@ -139,25 +142,26 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
    */
   const addEntity = async (
     element: OptionalId<T> | OptionalId<T>[],
-    history: string | boolean = true,
+    history: string | boolean = true
   ) => {
     const list: OptionalId<T>[] = asArray(element)
 
     const enrichtedList: OptionalId<T>[] = list.map((e: OptionalId<T>) =>
-      history ? enrichWithHistory<T>(history, e, user) : e,
+      history ? enrichWithHistory<T>(history, e, user) : e
     )
 
     const fbDocs = await Promise.all(
-      enrichtedList.map(async (m) => {
-        return addDoc(collection, removeEmpty(m))
-      }),
+      enrichtedList.map(async (m) => addDoc(collection, removeEmpty(m)))
     )
-    const fixedIds = enrichtedList.map((e, i) => ({ ...e, id: fbDocs[i].id })) as T[]
+    const fixedIds = enrichtedList.map((e, i) => ({
+      ...e,
+      id: fbDocs[i].id,
+    })) as T[]
     setList(listUpdater(fixedIds))
     log.debug(
-      `Added Entitie(s) with id: ${fixedIds.map((m) => m.id).join(',')} to list ${
-        collection.id
-      }`,
+      `Added Entitie(s) with id: ${fixedIds
+        .map((m) => m.id)
+        .join(',')} to list ${collection.id}`
     )
     return asListOrSingle<T>(element as T | T[], fixedIds)
   }
@@ -168,7 +172,10 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
    * @param history
    * @returns
    */
-  const updateEntity = async (element: T | T[], history: string | boolean = true) => {
+  const updateEntity = async (
+    element: T | T[],
+    history: string | boolean = true
+  ) => {
     const list = asArray(element)
     const oldList = await getListSnapshot()
 
@@ -177,13 +184,17 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
         const oldElement = oldList.find((oe) => oe.id === e.id)
         if (!oldElement) {
           throw new Error(
-            `das zu aktualisierende Element ${e.id} konnte nicht gefunden werden`,
+            `das zu aktualisierende Element ${e.id} konnte nicht gefunden werden`
           )
         }
         const { history: oldHistory, ...oldWithoutHistory } = oldElement
         const { history: eHistory, ...eWithoutHistory } = e
         const diff = objDiff(oldWithoutHistory, eWithoutHistory)
-        if (diff && Object.keys(diff).length === 0 && typeof history === 'boolean') {
+        if (
+          diff &&
+          Object.keys(diff).length === 0 &&
+          typeof history === 'boolean'
+        ) {
           log.warn('Dokument ist gleich und wurde nicht geändert')
           return e
         }
@@ -199,11 +210,11 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
           updateDoc(docRef, cleaned as any)
         } else {
           log.warn(
-            `Dokument ${id} sollte aktualisiert werden, wurde aber nicht gefunden.`,
+            `Dokument ${id} sollte aktualisiert werden, wurde aber nicht gefunden.`
           )
         }
         return enriched
-      }),
+      })
     )
 
     setList(listUpdater(result))
@@ -270,14 +281,14 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
    */
   const seed: (
     generator: (i: number) => OptionalId<T>,
-    num?: number,
+    num?: number
   ) => Promise<[string, T[]]> = async (
     generator: (i: number) => OptionalId<T>,
-    num = 5,
+    num = 5
   ) => {
     const list = (await addEntity(
       [...Array(num)].map((m, i) => generator(i)),
-      'Seed',
+      'Seed'
     )) as T[]
 
     const retval: [string, T[]] = [
@@ -295,7 +306,7 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
     addEntity,
     addOrUpdateEntity: async (
       e: OptionalId<T> | OptionalId<T>[],
-      history?: string | boolean,
+      history?: string | boolean
     ) => {
       const v = e instanceof Array ? e[0] : e
       return v.id ? updateEntity(e as T | T[], history) : addEntity(e, history)
@@ -324,7 +335,7 @@ function useFirebaseCollectionRead<T extends FBEntity>(collectionName: string) {
  */
 function useFirebaseCollectionFilter<T extends FBEntity>(
   collectionName: string,
-  filterFn: (list: T[]) => T[],
+  filterFn: (list: T[]) => T[]
 ) {
   return useRecoilValue(filterFamily<T>(collectionName))(filterFn)
 }

@@ -15,7 +15,7 @@ interface FirebaseAppProps {
   onInit?: () => void
 }
 
-const DebugObserver = () => {
+function DebugObserver() {
   const snapshot = useRecoilSnapshot()
   useEffect(() => {
     log.debug('The following atoms were modified:')
@@ -28,20 +28,23 @@ const DebugObserver = () => {
   return null
 }
 
-const FirebaseApp = (props: PropsWithChildren<FirebaseAppProps>) => {
+function FirebaseApp(props: PropsWithChildren<FirebaseAppProps>) {
   log.debug('Starting FirebaseApp...')
+
+  const { config, onInit, children } = props
+
   const [fbInited, setFbInited] = useState(false)
 
   useEffect(() => {
     if (!fbInited) {
-      initFirebaseApp(props.config)
+      initFirebaseApp(config)
       setFbInited(true)
     }
     if (fbInited) {
       log.info('FirebaseApp inited')
     }
-    if (fbInited && props.onInit) {
-      props.onInit()
+    if (fbInited && onInit) {
+      onInit()
     }
   }, [fbInited])
 
@@ -49,10 +52,14 @@ const FirebaseApp = (props: PropsWithChildren<FirebaseAppProps>) => {
     <RecoilRoot>
       {log.getLogLevel() === 'DEBUG' ? <DebugObserver /> : null}
       <LocalizationProvider dateAdapter={DateAdapter} locale={de}>
-        {fbInited ? props.children : null}
+        {fbInited ? children : null}
       </LocalizationProvider>
     </RecoilRoot>
   )
+}
+
+FirebaseApp.defaultProps = {
+  onInit: undefined,
 }
 
 export { FirebaseApp }

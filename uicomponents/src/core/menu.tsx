@@ -22,7 +22,6 @@ interface Page {
   name: string
   icon: ReactElement
   component: ReactElement
-  adminOnly: boolean
 }
 
 const ResponsiveBox = styled('div')(({ theme }) => ({
@@ -35,17 +34,20 @@ const ResponsiveBox = styled('div')(({ theme }) => ({
 }))
 
 interface MainMenuProps {
+  title: string
   pages: any
   version: string
   logo: any
   sync: any
   logout: any
-  user?: User
+  user: User
 }
 
-const MainMenu = (props: MainMenuProps) => {
+function MainMenu(props: MainMenuProps) {
+  const { pages, sync, logout, user, logo, version, title } = props
+
   const [activePage, setActivePage] = useState<Page | undefined>(
-    props.pages.length ? props.pages[0] : undefined,
+    pages.length ? pages[0] : undefined,
   )
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false)
@@ -55,7 +57,7 @@ const MainMenu = (props: MainMenuProps) => {
     setAnchorEl(event.currentTarget)
 
   const handleSync = async () => {
-    await props.sync()
+    await sync()
     log.debug('Data synced')
   }
 
@@ -63,14 +65,14 @@ const MainMenu = (props: MainMenuProps) => {
 
   const handleDrawerToggle = () => setDrawerOpen(!drawerOpen)
 
-  const logout = () => {
-    props.logout().then(() => {
+  const logoutHandler = () => {
+    logout().then(() => {
       handleMenuClose()
     })
   }
 
   const handleDrawer = (index: number) => {
-    setActivePage(props.pages[index])
+    setActivePage(pages[index])
     setDrawerOpen(false)
   }
 
@@ -103,11 +105,11 @@ const MainMenu = (props: MainMenuProps) => {
         }}
       >
         <Box sx={{ color: 'secondary.contrastText' }}>
-          <Typography variant="body2">{props.user?.displayName}</Typography>
-          <Typography variant="body2">{props.user?.email}</Typography>
+          <Typography variant="body2">{user.displayName}</Typography>
+          <Typography variant="body2">{user.email}</Typography>
         </Box>
       </Box>
-      <MenuItem onClick={logout}>Logout</MenuItem>
+      <MenuItem onClick={logoutHandler}>Logout</MenuItem>
     </Menu>
   )
 
@@ -116,14 +118,12 @@ const MainMenu = (props: MainMenuProps) => {
       <Toolbar />
       <Box sx={{ overflow: 'auto' }}>
         <List>
-          {props.pages.map((page: any, index: number) => {
-            return (
-              <ListItem button key={page.name} onClick={() => handleDrawer(index)}>
-                <ListItemIcon>{page.icon}</ListItemIcon>
-                <ListItemText primary={page.name} />
-              </ListItem>
-            )
-          })}
+          {pages.map((page: any, index: number) => (
+            <ListItem button key={page.name} onClick={() => handleDrawer(index)}>
+              <ListItemIcon>{page.icon}</ListItemIcon>
+              <ListItemText primary={page.name} />
+            </ListItem>
+          ))}
         </List>
       </Box>
     </div>
@@ -150,11 +150,11 @@ const MainMenu = (props: MainMenuProps) => {
               filter: 'drop-shadow(0px 0px 5px #A0A0A0)',
             }}
           >
-            <img width={55} src={props.logo} alt="Logo" />
+            <img width={55} src={logo} alt="Logo" />
           </ResponsiveBox>
-          <Tooltip title={`Version: ${props.version}` ?? 'dev'}>
+          <Tooltip title={`Version: ${version}` ?? 'dev'}>
             <Typography variant="h4" noWrap component="div" sx={{ fontWeight: 500 }}>
-              OGV Hemau e.V.
+              {title}
             </Typography>
           </Tooltip>
           <Box sx={{ flexGrow: 1 }} />
@@ -183,7 +183,7 @@ const MainMenu = (props: MainMenuProps) => {
           width: drawerWidth,
           flexShrink: 0,
           display: { xs: 'block', md: 'none' },
-          [`& .MuiDrawer-paper`]: {
+          '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
           },
@@ -197,7 +197,7 @@ const MainMenu = (props: MainMenuProps) => {
           width: drawerWidth,
           flexShrink: 0,
           display: { xs: 'none', md: 'block' },
-          [`& .MuiDrawer-paper`]: {
+          '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
           },

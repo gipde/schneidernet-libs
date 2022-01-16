@@ -18,7 +18,7 @@ interface ControlledComboBoxProps {
   clearErrors?: any
 }
 
-const ControlledComboBox = (props: ControlledComboBoxProps) => {
+function ControlledComboBox(props: ControlledComboBoxProps) {
   const { control, id, label, errors, clearErrors, errorText, entries } = props
 
   const formErrors = _.get(errors, id)
@@ -28,9 +28,7 @@ const ControlledComboBox = (props: ControlledComboBoxProps) => {
       name={id}
       control={control}
       rules={{
-        validate: (value) => {
-          return !!value
-        },
+        validate: (value) => !!value,
       }}
       render={({ field }) => (
         <FormControl fullWidth size="small" error={!!formErrors}>
@@ -61,6 +59,10 @@ const ControlledComboBox = (props: ControlledComboBoxProps) => {
       )}
     />
   )
+}
+
+ControlledComboBox.defaultProps = {
+  clearErrors: undefined,
 }
 
 export { ControlledComboBox }

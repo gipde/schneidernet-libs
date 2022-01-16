@@ -15,7 +15,8 @@ interface AlertDialogProps<T> {
   open: T
   onClose: (_accept: boolean, data: T) => void
 }
-const AlertDialog: <T>(props: AlertDialogProps<T>) => React.ReactElement = (props) => {
+
+function AlertDialog<T>(props: AlertDialogProps<T>): React.ReactElement {
   const { onClose, title, text, open: context } = props
 
   const fnOrValue = (arg: string | ((data: typeof context) => string)) =>

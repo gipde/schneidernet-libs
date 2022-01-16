@@ -13,18 +13,19 @@ interface VerlaufProps {
   before?: React.ReactNode
   after?: React.ReactNode
 }
-const Verlauf = (props: VerlaufProps) => {
-  const defaultProps = {
-    before: null,
-    after: null,
-  }
-
-  const { before, data, after } = { ...defaultProps, ...props }
+function Verlauf(props: VerlaufProps) {
+  const { before, data, after } = props
 
   return (
     <Paper
       variant="outlined"
-      sx={{ mt: 2, mb: 2, p: 2, backgroundColor: 'whitesmoke', width: '100%' }}
+      sx={{
+        mt: 2,
+        mb: 2,
+        p: 2,
+        backgroundColor: 'whitesmoke',
+        width: '100%',
+      }}
     >
       {before}
       <Box sx={{ margin: 1 }}>
@@ -34,7 +35,7 @@ const Verlauf = (props: VerlaufProps) => {
         {data.history
           ? data.history.map((v) => (
               <Box key={`key_${v.datum}`}>
-                {formatDayTime(v.datum)}, {v.user}, {v.beschreibung}
+                {formatDayTime(v.datum)},{v.user},{v.beschreibung}
               </Box>
             ))
           : null}
@@ -42,6 +43,11 @@ const Verlauf = (props: VerlaufProps) => {
       {after}
     </Paper>
   )
+}
+
+Verlauf.defaultProps = {
+  before: null,
+  after: null,
 }
 
 export { Verlauf }
