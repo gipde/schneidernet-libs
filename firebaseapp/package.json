@@ -9,10 +9,10 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "build": "pnpm clean  && tsc -p ./tsconfig.json",
+    "build": "tsc",
     "test": "jest --coverage",
     "dev": "tsc  --build --verbose --watch -i",
-    "pub": "pnpm build && pnpm publish --access public --no-git-checks",
+    "pub": "pnpm clean && pnpm build && pnpm publish",
     "fixReactLink": "cd node_modules && rm react react-dom && ln -s ../../../ogvapp/node_modules/react . && ln -s ../../../ogvapp/node_modules/react-dom ."
   },
   "repository": {

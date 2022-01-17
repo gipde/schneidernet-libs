@@ -2,9 +2,13 @@
   "name": "schneidernet",
   "version": "1.0.0",
   "scripts": {
+    "clean": "pnpm -r clean",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
     "format": "prettier  --loglevel warn --write \"./**/*.{ts,md,js,yaml,json}\" ",
     "formatCheck": "prettier  --check \"./**/*.{ts,tsx,md,js,jsx,yaml,json}\" ",
-    "lint": "eslint ./ --fix"
+    "lint": "eslint ./ --fix",
+    "check": "pnpm clean && pnpm formatCheck && pnpm lint && pnpm test"
   },
   "license": "ISC",
   "private": true,

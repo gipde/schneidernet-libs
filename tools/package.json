@@ -11,14 +11,10 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "build": "pnpm clean && rollup -c && tsc ",
+    "build": "rollup -c && tsc ",
     "test": "jest --coverage",
-    "lint": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
-    "format": "prettier  --loglevel warn --write \"./**/*.{ts,md,js,yaml,json}\" ",
-    "formatCheck": "prettier  --check \"./**/*.{ts,tsx,md,js,jsx,yaml,json}\" ",
     "dev": "tsc  --build --verbose --watch -i",
-    "check": "pnpm format && pnpm lint && pnpm test",
-    "pub": "pnpm check && pnpm build && pnpm publish"
+    "pub": "pnpm clean && pnpm build && pnpm publish"
   },
   "repository": {
     "type": "git",
