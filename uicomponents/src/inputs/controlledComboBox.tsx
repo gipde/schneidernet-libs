@@ -3,12 +3,12 @@ import _ from 'lodash'
 import React from 'react'
 import { Controller } from 'react-hook-form'
 
-interface ComboBoxEntry {
+export interface ComboBoxEntry {
   key: string
   value: string
 }
 
-interface ControlledComboBoxProps {
+export interface ControlledComboBoxProps {
   id: string
   label: string
   entries: ComboBoxEntry[]

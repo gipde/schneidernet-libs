@@ -89,7 +89,7 @@ interface LoginProps {
   afterLogin?: () => void
 }
 
-function Login(props: PropsWithChildren<LoginProps>) {
+function Login(props: PropsWithChildren<LoginProps>): any {
   const [errorMessage, setErrorMessage] = React.useState('')
   const [redirected, setRedirected] = useState(true)
   const [uiUser, setUiUser] = useRecoilState(uiUserAtom)
@@ -181,7 +181,7 @@ function Login(props: PropsWithChildren<LoginProps>) {
     )
   }
 
-  if (redirected || auth.currentUser) {
+  if (children && (redirected || auth.currentUser)) {
     return children
   }
 

@@ -1,4 +1,4 @@
-const validateNotEmpty = (value: any, path: any, clearErrors: any) => {
+const validateNotEmpty = (value: any, path: any, clearErrors: any): boolean => {
   clearErrors(path)
   return !!value
 }

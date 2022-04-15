@@ -1,12 +1,12 @@
 import { Paper, Theme } from '@mui/material'
 import { SxProps } from '@mui/system'
-import React, { PropsWithChildren, ReactNode } from 'react'
+import React, { PropsWithChildren } from 'react'
 
 interface OutlineBoxProps {
   sx?: SxProps<Theme>
 }
 
-function OutlineBox(props: OutlineBoxProps & PropsWithChildren<ReactNode>) {
+function OutlineBox(props: PropsWithChildren<OutlineBoxProps>) {
   const { sx, children } = props
   return (
     <Paper

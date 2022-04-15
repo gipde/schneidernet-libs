@@ -22,6 +22,7 @@ interface Page {
   name: string
   icon: ReactElement
   component: ReactElement
+  adminOnly: boolean
 }
 
 const ResponsiveBox = styled('div')(({ theme }) => ({
@@ -40,12 +41,13 @@ interface MainMenuProps {
   logo: any
   sync: any
   logout: any
-  user: User
+  user: User | undefined
 }
 
 function MainMenu(props: MainMenuProps) {
   const { pages, sync, logout, user, logo, version, title } = props
 
+  // store last used
   const [activePage, setActivePage] = useState<Page | undefined>(
     pages.length ? pages[0] : undefined,
   )
@@ -105,8 +107,8 @@ function MainMenu(props: MainMenuProps) {
         }}
       >
         <Box sx={{ color: 'secondary.contrastText' }}>
-          <Typography variant="body2">{user.displayName}</Typography>
-          <Typography variant="body2">{user.email}</Typography>
+          <Typography variant="body2">{user?.displayName}</Typography>
+          <Typography variant="body2">{user?.email}</Typography>
         </Box>
       </Box>
       <MenuItem onClick={logoutHandler}>Logout</MenuItem>

@@ -275,13 +275,13 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
 
   /**
    * Testbestand seeden
-   * @param generator
-   * @param num
+   * @param generator Generator Function
+   * @param maxElements Number of Elements
    * @returns
    */
   const seed: (
     generator: (i: number) => OptionalId<T>,
-    num?: number
+    maxElements?: number
   ) => Promise<[string, T[]]> = async (
     generator: (i: number) => OptionalId<T>,
     num = 5
@@ -313,7 +313,7 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
     },
     updateEntity,
     deleteEntity,
-    // select: undefined,
+    // setlect: undefined,
   }
 }
 
