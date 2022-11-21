@@ -1,13 +1,13 @@
 /* eslint no-restricted-syntax: ["error"] */
 
-import { LocalizationProvider } from '@mui/lab'
-import DateAdapter from '@mui/lab/AdapterDateFns'
+import { FirebaseOptions } from '@firebase/app'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { log } from '@schneidernet/tools'
 import { de } from 'date-fns/locale'
-import { FirebaseOptions } from '@firebase/app'
 import React, { PropsWithChildren, useEffect, useState } from 'react'
 import { RecoilRoot, useRecoilSnapshot } from 'recoil'
 
+import { LocalizationProvider } from '@mui/x-date-pickers'
 import { initFirebaseApp } from './initFirebase'
 
 interface FirebaseAppProps {
@@ -51,7 +51,7 @@ function FirebaseApp(props: PropsWithChildren<FirebaseAppProps>) {
   return (
     <RecoilRoot>
       {log.getLogLevel() === 'DEBUG' ? <DebugObserver /> : null}
-      <LocalizationProvider dateAdapter={DateAdapter} locale={de}>
+      <LocalizationProvider dateAdapter={AdapterDateFns} locale={de}>
         {fbInited ? children : null}
       </LocalizationProvider>
     </RecoilRoot>

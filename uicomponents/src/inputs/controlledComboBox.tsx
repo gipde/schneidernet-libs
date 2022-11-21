@@ -1,4 +1,11 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material'
 import _ from 'lodash'
 import React from 'react'
 import { Controller } from 'react-hook-form'
@@ -16,10 +23,11 @@ export interface ControlledComboBoxProps {
   errors: any
   errorText: string
   clearErrors?: any
+  onChange?: (value: SelectChangeEvent<string>) => void
 }
 
 function ControlledComboBox(props: ControlledComboBoxProps) {
-  const { control, id, label, errors, clearErrors, errorText, entries } = props
+  const { control, id, label, errors, clearErrors, errorText, entries, onChange } = props
 
   const formErrors = _.get(errors, id)
 
@@ -45,6 +53,9 @@ function ControlledComboBox(props: ControlledComboBoxProps) {
                 clearErrors()
               }
               field.onChange(value)
+              if (onChange) {
+                onChange(value)
+              }
             }}
             size="small"
           >

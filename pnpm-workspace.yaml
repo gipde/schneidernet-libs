@@ -2,3 +2,5 @@ packages:
   - 'firebaseapp'
   - 'uicomponents'
   - 'tools'
+  - 'prettierSharedConfig'
+  - 'eslintSharedConfig'

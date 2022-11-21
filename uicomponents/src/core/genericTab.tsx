@@ -3,6 +3,8 @@ import { Box } from '@mui/system'
 import React from 'react'
 
 interface TabPanelProps {
+  /** if set to true, react state will not get lost */
+  renderHiddenTab?: boolean
   children?: React.ReactNode
   index: number
   value: number
@@ -10,6 +12,7 @@ interface TabPanelProps {
 
 interface TabProps {
   name: string
+  renderHiddenTab?: boolean
   child: React.ReactElement
 }
 
@@ -24,7 +27,7 @@ interface GenericTabProps {
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
+  const { children, value, index, renderHiddenTab, ...other } = props
 
   return (
     <div
@@ -34,7 +37,7 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
+      {(value === index || renderHiddenTab || false) && (
         <Box sx={{ p: { md: 3, sm: 1 }, pt: { xs: 2 } }}>
           <Typography component="div">{children}</Typography>
         </Box>
@@ -44,6 +47,7 @@ function TabPanel(props: TabPanelProps) {
 }
 TabPanel.defaultProps = {
   children: null,
+  renderHiddenTab: false,
 }
 
 function a11yProps(index: number) {
@@ -93,7 +97,12 @@ function GenericTab(props: GenericTabProps) {
       </Box>
       {/* Panels */}
       {tabs.map((t, i) => (
-        <TabPanel key={`tab_panel${t.name}`} value={activeTabPanel} index={i}>
+        <TabPanel
+          key={`tab_panel${t.name}`}
+          value={activeTabPanel}
+          index={i}
+          renderHiddenTab={t.renderHiddenTab}
+        >
           {t.child}
         </TabPanel>
       ))}

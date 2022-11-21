@@ -1,18 +1,19 @@
-import { DatePicker, DateTimePicker } from '@mui/lab'
 import { TextFieldProps } from '@mui/material'
+import { DatePicker, DateTimePicker } from '@mui/x-date-pickers'
 import { dateValidator } from '@schneidernet/tools'
 import _ from 'lodash'
 import React from 'react'
 import {
   Controller,
   FieldErrors,
+  FieldValues,
   UseFormClearErrors,
   UseFormSetError,
 } from 'react-hook-form'
 import { DateAsTime } from '../helper/types'
 import { StyledTextField } from './textField'
 
-interface ControlledDatePickerProps<T> {
+interface ControlledDatePickerProps<T extends FieldValues> {
   id: any
   label: string
   control: any
@@ -23,7 +24,9 @@ interface ControlledDatePickerProps<T> {
   type?: 'DateTimePicker' | 'DatePicker'
 }
 
-function ControlledDatePicker<T>(props: ControlledDatePickerProps<T> & TextFieldProps) {
+function ControlledDatePicker<T extends FieldValues>(
+  props: ControlledDatePickerProps<T> & TextFieldProps,
+) {
   const defaultProps: Partial<ControlledDatePickerProps<T> & TextFieldProps> = {
     size: 'medium',
   }

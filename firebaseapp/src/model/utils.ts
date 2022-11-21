@@ -61,7 +61,7 @@ const objDiff = (o1: any, o2: any): any => {
   return o1 === o2
 }
 
-function removeEmpty<T>(obj: T): T | T[] {
+function removeEmpty<T extends {}>(obj: T): T | T[] {
   if (Array.isArray(obj)) {
     return obj
       .map((v) => (v && typeof v === 'object' ? removeEmpty(v) : v))
@@ -71,7 +71,7 @@ function removeEmpty<T>(obj: T): T | T[] {
     .map(([k, v]) => [k, v && typeof v === 'object' ? removeEmpty(v) : v])
     .reduce(
       // eslint-disable-next-line no-param-reassign
-      (a, [k, v]) => (v == null ? a : (((a as any)[k] = v), a)),
+      (a, [k, v]) => (v == null ? a : (((a as any)[k as any] = v), a)),
       {}
     ) as T
 }
