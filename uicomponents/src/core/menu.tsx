@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/system'
 import { User } from '@schneidernet/firebaseappp'
 import { log } from '@schneidernet/tools'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 
 const drawerWidth = 240
 
@@ -77,6 +77,11 @@ function MainMenu(props: MainMenuProps) {
     setActivePage(pages[index])
     setDrawerOpen(false)
   }
+
+  // if pages will be modified
+  useEffect(() => {
+    setActivePage(pages[0])
+  }, [pages])
 
   const menuId = 'primary-search-account-menu'
   const renderMenu = (

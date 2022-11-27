@@ -1,6 +1,6 @@
 {
   "name": "@schneidernet/uicomponents",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "several ui components",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,17 +32,17 @@
     "@mui/system": "^5.10.14",
     "@mui/types": "^7.2.1",
     "@mui/x-date-pickers": "^5.0.8",
-    "@schneidernet/firebaseappp": "^0.0.17",
+    "@schneidernet/firebaseappp": "^0.0.21",
     "@schneidernet/tools": "^0.0.13",
     "lodash": "^4.17.21",
-    "react-hook-form": "^7.39.4"
+    "react-hook-form": "^7.39.6"
   },
   "devDependencies": {
     "@types/jest": "^29.2.3",
-    "@types/lodash": "^4.14.189",
+    "@types/lodash": "^4.14.190",
     "@types/react": "^18.0.25",
     "jest": "^29.3.1",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^29.0.3",
     "typescript": "^4.9.3"
