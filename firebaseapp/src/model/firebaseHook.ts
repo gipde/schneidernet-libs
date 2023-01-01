@@ -1,10 +1,13 @@
 import {
   addDoc,
   collection as fbCollection,
+  CollectionReference,
   deleteDoc,
   doc,
   getDocs,
+  query,
   updateDoc,
+  QueryConstraint,
 } from '@firebase/firestore'
 import { asArray, asListOrSingle, log, PartialBy } from '@schneidernet/tools'
 import {
@@ -57,6 +60,18 @@ const filterFamily = selectorFamily<
 }) as <T extends FBEntity>(
   param: string
 ) => RecoilValueReadOnly<(filterFn: (all: T[]) => T[]) => T[]>
+
+/**
+ * get Collection Reference
+ * @param colName Name of the Collection
+ * @returns
+ */
+function getCollectionRef(colName: string) {
+  return fbCollection(
+    firestore,
+    process.env.NODE_ENV === 'production' ? colName : `test_${colName}`
+  )
+}
 
 /**
  * ergänzt die History
@@ -129,10 +144,7 @@ function useFirebaseCollectionWrite<T extends FBEntity>(colName: string) {
         snapshot.getPromise(listFamily<T>(colName))
   )
 
-  const collection = fbCollection(
-    firestore,
-    process.env.NODE_ENV === 'production' ? colName : `test_${colName}`
-  )
+  const collection = getCollectionRef(colName)
 
   /**
    * fügt ein Element hinzu
@@ -353,7 +365,28 @@ function useFirebaseCollection<T extends FBEntity>(collectionName: string) {
   }
 }
 
+/**
+ * Firebase Query
+ * @param collectionName
+ * @returns
+ */
+function useFirebaseCollectionQuery(collectionName: string) {
+  const ref: CollectionReference = getCollectionRef(collectionName)
+  return (constraints: QueryConstraint) => query(ref, constraints)
+}
+
+/**
+ * Get Firebase Collection Reference
+ * @param collectionName
+ * @returns
+ */
+function useFirebaseCollectionRef(collectionName: string) {
+  return getCollectionRef(collectionName)
+}
+
 export {
+  useFirebaseCollectionRef,
+  useFirebaseCollectionQuery,
   useFirebaseCollectionRead,
   useFirebaseCollectionWrite,
   useFirebaseCollection,
