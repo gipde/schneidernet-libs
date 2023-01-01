@@ -8,6 +8,8 @@ import {
   query,
   updateDoc,
   QueryConstraint,
+  QuerySnapshot,
+  where
 } from '@firebase/firestore'
 import { asArray, asListOrSingle, log, PartialBy } from '@schneidernet/tools'
 import {
@@ -370,9 +372,12 @@ function useFirebaseCollection<T extends FBEntity>(collectionName: string) {
  * @param collectionName
  * @returns
  */
-function useFirebaseCollectionQuery(collectionName: string) {
+function useFirebaseCollectionQuery<T extends FBEntity>(
+  collectionName: string
+) {
   const ref: CollectionReference = getCollectionRef(collectionName)
-  return (constraints: QueryConstraint) => query(ref, constraints)
+  return (constraints: QueryConstraint) =>
+    getDocs(query(ref, constraints)) as Promise<QuerySnapshot<T>>
 }
 
 /**

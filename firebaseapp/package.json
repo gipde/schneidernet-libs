@@ -1,6 +1,6 @@
 {
   "name": "@schneidernet/firebaseappp",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "framework for firebaseappp",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
