@@ -354,19 +354,6 @@ function useFirebaseCollectionFilter<T extends FBEntity>(
 }
 
 /**
- * FirebaseCollection - lesend und schreibende
- * @param collectionName
- * @param options
- * @returns
- */
-function useFirebaseCollection<T extends FBEntity>(collectionName: string) {
-  return {
-    list: useFirebaseCollectionRead<T>(collectionName),
-    ...useFirebaseCollectionWrite<T>(collectionName),
-  }
-}
-
-/**
  * Firebase Query
  * @param collectionName
  * @returns
@@ -386,6 +373,21 @@ function useFirebaseCollectionQuery<T extends FBEntity>(
  */
 function useFirebaseCollectionRef(collectionName: string) {
   return getCollectionRef(collectionName)
+}
+
+/**
+ * FirebaseCollection - lesend und schreibende
+ * @param collectionName
+ * @param options
+ * @returns
+ */
+function useFirebaseCollection<T extends FBEntity>(collectionName: string) {
+  return {
+    list: useFirebaseCollectionRead<T>(collectionName),
+    query: useFirebaseCollectionQuery<T>(collectionName),
+    collRef: useFirebaseCollectionRef(collectionName),
+    ...useFirebaseCollectionWrite<T>(collectionName),
+  }
 }
 
 export {
