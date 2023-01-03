@@ -1,4 +1,4 @@
-import { updateProfile } from '@firebase/auth'
+import { updateProfile } from 'firebase/auth'
 import { log } from '@schneidernet/tools'
 import { auth } from './initFirebase'
 

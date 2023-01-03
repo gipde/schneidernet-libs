@@ -1,6 +1,6 @@
 /* eslint no-restricted-syntax: ["error"] */
 
-import { FirebaseOptions } from '@firebase/app'
+import { FirebaseOptions } from 'firebase/app'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { log } from '@schneidernet/tools'
 import { de } from 'date-fns/locale'

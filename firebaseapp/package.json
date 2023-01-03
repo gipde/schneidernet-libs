@@ -1,6 +1,6 @@
 {
   "name": "@schneidernet/firebaseappp",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "framework for firebaseappp",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,11 +28,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@firebase/analytics": "^0.8.4",
-    "@firebase/app": "^0.8.4",
-    "@firebase/auth": "^0.20.11",
-    "@firebase/firestore": "^3.7.3",
-    "@firebase/performance": "^0.5.17",
+    "firebase": "^9.15.0",
     "@mui/icons-material": "^5.10.14",
     "@mui/material": "^5.10.14",
     "@mui/styles": "^5.10.14",

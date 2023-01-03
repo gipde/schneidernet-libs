@@ -1,9 +1,9 @@
 /* eslint-disable import/no-mutable-exports */
-import { Analytics, getAnalytics } from '@firebase/analytics'
-import { FirebaseApp, FirebaseOptions, initializeApp } from '@firebase/app'
-import { Auth, getAuth } from '@firebase/auth'
-import { Firestore, getFirestore } from '@firebase/firestore'
-import { FirebasePerformance, getPerformance } from '@firebase/performance'
+import { Analytics, getAnalytics } from 'firebase/analytics'
+import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app'
+import { Auth, getAuth } from 'firebase/auth'
+import { Firestore, getFirestore } from 'firebase/firestore'
+import { FirebasePerformance, getPerformance } from 'firebase/performance'
 import { log } from '@schneidernet/tools'
 
 let app: FirebaseApp

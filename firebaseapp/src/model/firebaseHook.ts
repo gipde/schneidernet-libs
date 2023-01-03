@@ -9,8 +9,7 @@ import {
   updateDoc,
   QueryConstraint,
   QuerySnapshot,
-  where
-} from '@firebase/firestore'
+} from 'firebase/firestore'
 import { asArray, asListOrSingle, log, PartialBy } from '@schneidernet/tools'
 import {
   atomFamily,

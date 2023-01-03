@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword,
   signInWithRedirect,
   UserCredential,
-} from '@firebase/auth'
+} from 'firebase/auth'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import {
   Avatar,
