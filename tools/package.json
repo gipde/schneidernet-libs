@@ -1,6 +1,6 @@
 {
   "name": "@schneidernet/tools",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "several tools",
   "main": "dist/tools.cjs.js",
   "module": "dist/tools.esm.js",

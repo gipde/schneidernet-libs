@@ -24,7 +24,7 @@ let lastLogEntry = new Date().getTime()
 
 const levelNames = Object.keys(log.levels)
 
-const timestamp = () => format(new Date(), 'Pp,SSS', { locale: de })
+const timestamp = () => format(new Date(), 'Ppp,SSS', { locale: de })
 
 function getPattern(lvl: string) {
   const currentTime = new Date().getTime()
