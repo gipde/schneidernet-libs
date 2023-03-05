@@ -11,6 +11,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { initFirebaseApp } from './initFirebase'
 
 interface FirebaseAppProps {
+  name: string
   config: FirebaseOptions
   onInit?: () => void
 }
@@ -31,13 +32,13 @@ function DebugObserver() {
 function FirebaseApp(props: PropsWithChildren<FirebaseAppProps>) {
   log.debug('Starting FirebaseApp...')
 
-  const { config, onInit, children } = props
+  const { name, config, onInit, children } = props
 
   const [fbInited, setFbInited] = useState(false)
 
   useEffect(() => {
     if (!fbInited) {
-      initFirebaseApp(config)
+      initFirebaseApp(config, name)
       setFbInited(true)
     }
     if (fbInited) {

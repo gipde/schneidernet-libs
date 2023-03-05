@@ -12,10 +12,10 @@ let analytics: Analytics
 let auth: Auth
 let performance: FirebasePerformance
 
-const initFirebaseApp = (cfg: FirebaseOptions) => {
+const initFirebaseApp = (cfg: FirebaseOptions, name: string) => {
   if (app === undefined) {
     log.debug('Init Firebase...')
-    app = initializeApp(cfg)
+    app = initializeApp(cfg, name)
     firestore = getFirestore(app)
     analytics = getAnalytics(app)
     auth = getAuth(app)
