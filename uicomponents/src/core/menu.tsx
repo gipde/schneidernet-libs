@@ -42,10 +42,11 @@ interface MainMenuProps {
   sync: any
   logout: any
   user: User | undefined
+  userMenu: React.ReactNode[]
 }
 
 function MainMenu(props: MainMenuProps) {
-  const { pages, sync, logout, user, logo, version, title } = props
+  const { pages, sync, logout, user, logo, version, title, userMenu } = props
 
   // store last used
   const [activePage, setActivePage] = useState<Page | undefined>(
@@ -116,6 +117,7 @@ function MainMenu(props: MainMenuProps) {
           <Typography variant="body2">{user?.email}</Typography>
         </Box>
       </Box>
+      {...userMenu}
       <MenuItem onClick={logoutHandler}>Logout</MenuItem>
     </Menu>
   )
